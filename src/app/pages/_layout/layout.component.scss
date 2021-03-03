@@ -1,0 +1,32 @@
+app-layout {
+  opacity: 0;
+  height: 100%;
+
+  .grid-root {
+    height: 100%;
+  }
+}
+
+.page-loaded {
+  app-layout {
+    opacity: 1;
+    transition: opacity 1s ease-in-out;
+  }
+}
+
+.main-content {
+  min-height: calc(100vh - 70px);
+  padding-top: 170px;
+}
+
+@media(min-width: 1300px) {
+  .custom-container {
+      padding-left: 80px ;
+      padding-right: 80px ;
+  }
+}
+@media(max-width: 1060px) {
+  .main-content {
+    padding-top: 130px;
+  }
+}

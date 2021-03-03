@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 22 22">
+  <g id="Arrow_-_Left_Circle" data-name="Arrow - Left Circle" transform="translate(22 22) rotate(180)">
+    <path id="Arrow_-_Left_Circle-2" data-name="Arrow - Left Circle" d="M0,11A10.934,10.934,0,0,1,4.293,2.28a.8.8,0,0,1,.976,1.268A9.4,9.4,0,1,0,11,1.6a9.509,9.509,0,0,0-1.429.107A.8.8,0,0,1,9.329.126,11,11,0,1,1,0,11Zm10.415,2.83L6.6,10A.825.825,0,1,1,7.766,8.831L11,12.079l3.234-3.248A.825.825,0,1,1,15.4,10L11.583,13.83a.822.822,0,0,1-1.168,0Z" transform="translate(0 22) rotate(-90)" fill="#6d922c"/>
+  </g>
+</svg>

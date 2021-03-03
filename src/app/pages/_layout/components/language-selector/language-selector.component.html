@@ -1,0 +1,15 @@
+<button [matMenuTriggerFor]="selectLanguage" class="ml-2 btn c-white btn-sm align-items-center d-flex">
+  <img class="flag" src="../../../../../assets/images/Lang.svg"/>
+  <span class="mx-2 c-white">{{getActiveLang().name}}</span> 
+  <img class="flag" src="../../../../../assets/images/iconly_light-outline_arrow_-_left_circle-13.svg"/>
+</button>
+<mat-menu class="custom-menu" #selectLanguage="matMenu">
+  <ng-container *ngFor="let language of languages">
+    <button (click)="setLanguageWithRefresh(language.lang)" [ngClass]="{ active: language.active }" mat-menu-item>
+      <span class="symbol symbol-20 mx-3">
+        <img class="flag" src="{{ language.flag }}" />
+      </span>
+      <span class="navi-text">{{ language.name }}</span>
+    </button>
+  </ng-container>
+</mat-menu>

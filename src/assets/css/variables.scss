@@ -1,0 +1,18 @@
+@font-face {
+    font-family: 'Cairo-Regular';
+    src: url('../fonts/Cairo-Regular.ttf');
+}
+@font-face {
+    font-family: 'Cairo-SemiBold';
+    src: url('../fonts/Cairo-SemiBold.ttf');
+}
+@font-face {
+    font-family: 'Cairo-Bold';
+    src: url('../fonts/Cairo-Bold.ttf');
+}
+
+$primaryColor: rgba(68, 108, 63, 1);
+$secondaryColor: #39993c;
+$regularFont: 'Cairo-Regular';
+$semiBoldFont: 'Cairo-SemiBold';
+$boldFont: 'Cairo-Bold';

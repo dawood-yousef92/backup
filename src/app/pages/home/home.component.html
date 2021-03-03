@@ -1,0 +1,282 @@
+<div class="row mb-4">
+    <div class="col-lg-3 col-md-4 mb-3">
+        <h4 class="categories-title text-center mb-0">Categories</h4>
+        <div class="categories-list py-4 px-3">
+            <mat-accordion class="custom-tree">
+                <mat-expansion-panel *ngFor="let cat of categories">
+                    <mat-expansion-panel-header>
+                        <mat-panel-title>
+                            {{cat.name}}
+                        </mat-panel-title>
+                    </mat-expansion-panel-header>
+                    <div *ngIf="cat.categories?.length > 0" [ngTemplateOutlet]="subCat" [ngTemplateOutletContext]="{categories:cat.categories}">
+                    </div>
+                </mat-expansion-panel>
+            </mat-accordion> 
+        </div>
+    </div>
+    <div class="col-lg-9 col-md-8">
+        <ngx-slick-carousel class="carousel main-slider" #slickModal="slick-carousel" [config]="slideConfig">
+            <div ngxSlickItem *ngFor="let slide of slides" class="slide">
+                <img src="{{ slide.img }}" alt="" width="100%">
+            </div>
+        </ngx-slick-carousel>
+    </div>
+</div>
+
+<div class="row mb-5">
+    <div class="col-12">
+        <div class="section">
+            <h2 class="section-title">
+                Our Categories
+            </h2>
+            <div class="slider-arrows-section">
+                <button class="btn" (click)="prev(2)">
+                    <img src="../../../assets/images/Arrow_Left_Circle.svg" alt="arrow">
+                </button>
+                <button class="btn" (click)="next(2)">
+                    <img src="../../../assets/images/Arrow_right_Circle.svg" alt="arrow">
+                </button>
+            </div>
+            <div class="section-content">
+                <ngx-slick-carousel class="carousel cat-slider" #slickModal2="slick-carousel" [config]="slideConfig2">
+                    <div ngxSlickItem *ngFor="let slide of categories" class="slide">
+                        <a class="cat-slide" href="#">
+                            <div class="slide-img" style="background-image:url('../../../assets/images/Capture4.PNG')"></div>
+                            <h3 class="slide-title">{{slide.name}}</h3>
+                        </a>
+                    </div>
+                    <div ngxSlickItem *ngFor="let slide of categories" class="slide">
+                        <a class="cat-slide" href="#">
+                            <div class="slide-img" style="background-image:url('../../../assets/images/Capture5.PNG')"></div>
+                            <h3 class="slide-title">{{slide.name}}</h3>
+                        </a>
+                    </div>
+                    <div ngxSlickItem *ngFor="let slide of categories" class="slide">
+                        <a class="cat-slide" href="#">
+                            <div class="slide-img" style="background-image:url('../../../assets/images/Capture6.PNG')"></div>
+                            <h3 class="slide-title">{{slide.name}}</h3>
+                        </a>
+                    </div>
+                    <div ngxSlickItem *ngFor="let slide of categories" class="slide">
+                        <a class="cat-slide" href="#">
+                            <div class="slide-img" style="background-image:url('../../../assets/images/Capture7.PNG')"></div>
+                            <h3 class="slide-title">{{slide.name}}</h3>
+                        </a>
+                    </div>
+                </ngx-slick-carousel>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row mb-5">
+    <div class="col-12">
+        <div class="section">
+            <h2 class="section-title">
+                My Daily List
+            </h2>
+            <div class="slider-arrows-section">
+                <button class="btn" (click)="prev(3)">
+                    <img src="../../../assets/images/Arrow_Left_Circle.svg" alt="arrow">
+                </button>
+                <button class="btn" (click)="next(3)">
+                    <img src="../../../assets/images/Arrow_right_Circle.svg" alt="arrow">
+                </button>
+            </div>
+            <div class="section-content">
+                <ngx-slick-carousel class="carousel cat-slider" #slickModal3="slick-carousel" [config]="slideConfig3">
+                    <div ngxSlickItem *ngFor="let slide of [1,2,3]" class="slide">
+                        <a class="cat-slide" href="#">
+                            <div class="slide-daily-img">
+                                <img src="../../../assets/images/Capture2.PNG" alt="img" class="w-100">
+                            </div>
+                            <!-- <h3 class="slide-title">{{slide.name}}</h3> -->
+                        </a>
+                    </div>
+                    <div ngxSlickItem *ngFor="let slide of [1,2,3]" class="slide">
+                        <a class="cat-slide" href="#">
+                            <div class="slide-daily-img">
+                                <img src="../../../assets/images/Capture3.PNG" alt="img" class="w-100">
+                            </div>
+                            <!-- <h3 class="slide-title">{{slide.name}}</h3> -->
+                        </a>
+                    </div>
+                    <div ngxSlickItem *ngFor="let slide of [1,2,3]" class="slide">
+                        <a class="cat-slide" href="#">
+                            <div class="slide-daily-img">
+                                <img src="../../../assets/images/Capture2.PNG" alt="img" class="w-100">
+                            </div>
+                            <!-- <h3 class="slide-title">{{slide.name}}</h3> -->
+                        </a>
+                    </div>
+                </ngx-slick-carousel>
+            </div>
+        </div>
+    </div>
+</div>
+  
+<div class="row">
+    <div class="col-12 main-tabs">
+        <mat-tab-group>
+            <mat-tab label="Bestselling"> 
+                <div class="p-3">
+                    <div class="row">
+                        <div class="col-lg-2 col-md-3 col-sm-4 col-6 mb-3" *ngFor="let a of [2,3,4,5,6,7]">
+                            <a href="#" class="product-item">
+                                <div class="product-img" style="background-image: url('../../../assets/images/Capture{{a}}.PNG');"></div>
+                                <div class="product-details">
+                                    <span class="product-name">Test Product</span>
+                                    <span class="product-price">20 JOD</span>
+                                </div>
+                            </a>
+                        </div>
+                        <div class="col-lg-2 col-md-3 col-sm-4 col-6 mb-3" *ngFor="let a of [2,3,4,5,6,7]">
+                            <a href="#" class="product-item">
+                                <div class="product-img" style="background-image: url('../../../assets/images/Capture{{a}}.PNG');"></div>
+                                <div class="product-details">
+                                    <span class="product-name">Test Product</span>
+                                    <span class="product-price">20 JOD</span>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </mat-tab>
+            <mat-tab label="Featured">
+                <div class="p-3">
+                    <div class="row">
+                        <div class="col-lg-2 col-md-3 col-sm-4 col-6 mb-3" *ngFor="let a of [2,3,4,5,6,7]">
+                            <a href="#" class="product-item">
+                                <div class="product-img" style="background-image: url('../../../assets/images/Capture{{a}}.PNG');"></div>
+                                <div class="product-details">
+                                    <span class="product-name">Test Product</span>
+                                    <span class="product-price">20 JOD</span>
+                                </div>
+                            </a>
+                        </div>
+                        <div class="col-lg-2 col-md-3 col-sm-4 col-6 mb-3" *ngFor="let a of [2,3,4,5,6,7]">
+                            <a href="#" class="product-item">
+                                <div class="product-img" style="background-image: url('../../../assets/images/Capture{{a}}.PNG');"></div>
+                                <div class="product-details">
+                                    <span class="product-name">Test Product</span>
+                                    <span class="product-price">20 JOD</span>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </mat-tab>
+            <mat-tab label="New Arrivals">
+                <div class="p-3">
+                    <div class="row">
+                        <div class="col-lg-2 col-md-3 col-sm-4 col-6 mb-3" *ngFor="let a of [2,3,4,5,6,7]">
+                            <a href="#" class="product-item">
+                                <div class="product-img" style="background-image: url('../../../assets/images/Capture{{a}}.PNG');"></div>
+                                <div class="product-details">
+                                    <span class="product-name">Test Product</span>
+                                    <span class="product-price">20 JOD</span>
+                                </div>
+                            </a>
+                        </div>
+                        <div class="col-lg-2 col-md-3 col-sm-4 col-6 mb-3" *ngFor="let a of [2,3,4,5,6,7]">
+                            <a href="#" class="product-item">
+                                <div class="product-img" style="background-image: url('../../../assets/images/Capture{{a}}.PNG');"></div>
+                                <div class="product-details">
+                                    <span class="product-name">Test Product</span>
+                                    <span class="product-price">20 JOD</span>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </mat-tab>
+            <mat-tab label="Top Reviewed">
+                <div class="p-3">
+                    <div class="row">
+                        <div class="col-lg-2 col-md-3 col-sm-4 col-6 mb-3" *ngFor="let a of [2,3,4,5,6,7]">
+                            <a href="#" class="product-item">
+                                <div class="product-img" style="background-image: url('../../../assets/images/Capture{{a}}.PNG');"></div>
+                                <div class="product-details">
+                                    <span class="product-name">Test Product</span>
+                                    <span class="product-price">20 JOD</span>
+                                </div>
+                            </a>
+                        </div>
+                        <div class="col-lg-2 col-md-3 col-sm-4 col-6 mb-3" *ngFor="let a of [2,3,4,5,6,7]">
+                            <a href="#" class="product-item">
+                                <div class="product-img" style="background-image: url('../../../assets/images/Capture{{a}}.PNG');"></div>
+                                <div class="product-details">
+                                    <span class="product-name">Test Product</span>
+                                    <span class="product-price">20 JOD</span>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </mat-tab>
+        </mat-tab-group>
+    </div>
+</div>
+
+<div class="row mb-5">
+    <div class="col-12">
+        <div class="section">
+            <h2 class="section-title">
+                Our Clients
+            </h2>
+            <div class="slider-arrows-section">
+                <button class="btn" (click)="prev(4)">
+                    <img src="../../../assets/images/Arrow_Left_Circle.svg" alt="arrow">
+                </button>
+                <button class="btn" (click)="next(4)">
+                    <img src="../../../assets/images/Arrow_right_Circle.svg" alt="arrow">
+                </button>
+            </div>
+            <div class="section-content">
+                <ngx-slick-carousel class="carousel cat-slider" #slickModal4="slick-carousel" [config]="slideConfig2">
+                    <div ngxSlickItem *ngFor="let slide of [1,2,3]" class="slide">
+                        <a class="cat-slide" href="#">
+                            <div class="slide-daily-img">
+                                <img src="../../../assets/images/Capture8.PNG" alt="img" class="w-100">
+                            </div>
+                        </a>
+                    </div>
+                    <div ngxSlickItem *ngFor="let slide of [1,2,3]" class="slide">
+                        <a class="cat-slide" href="#">
+                            <div class="slide-daily-img">
+                                <img src="../../../assets/images/Capture10.PNG" alt="img" class="w-100">
+                            </div>
+                        </a>
+                    </div>
+                    <div ngxSlickItem *ngFor="let slide of [1,2,3]" class="slide">
+                        <a class="cat-slide" href="#">
+                            <div class="slide-daily-img">
+                                <img src="../../../assets/images/Capture8.PNG" alt="img" class="w-100">
+                            </div>
+                        </a>
+                    </div>
+                </ngx-slick-carousel>
+            </div>
+        </div>
+    </div>
+</div>
+
+<ng-template #subCat let-categories="categories">
+    <ng-container *ngIf="categories?.length > 0">
+        <ng-container *ngFor="let cat of categories">
+            <mat-expansion-panel *ngIf="cat.categories?.length > 0">
+                <mat-expansion-panel-header>
+                    <mat-panel-title>
+                        {{cat?.name}}
+                    </mat-panel-title>
+                </mat-expansion-panel-header>
+                <div [ngTemplateOutlet]="subCat" [ngTemplateOutletContext]="{categories:cat.categories}">
+                </div>
+            </mat-expansion-panel>
+            <mat-panel-title *ngIf="cat?.categories?.length === 0" class="mat-expansion-panel-header-title noSub">
+                {{cat?.name}}
+            </mat-panel-title>
+        </ng-container>
+    </ng-container>
+</ng-template>

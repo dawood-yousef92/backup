@@ -1,0 +1,489 @@
+/* You can add global styles to this file, and also import other style files */
+/* Importing Bootstrap SCSS file. */
+@import '~bootstrap/scss/bootstrap';
+@import 'assets/css/variables';
+
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+.login-logo {
+    width: 120px;
+    display: block;
+    margin: 0 auto 30px;
+}
+.mat-body, .mat-body-1, .mat-typography {
+  font: 400 14px/20px $regularFont;
+}
+h1, h2, h3 {
+  font-family: $boldFont!important;
+}
+h4, h5, h6 {
+  font-family: $semiBoldFont!important;
+}
+p, span, a {
+  font-family: $regularFont!important;
+}
+.flag {
+    width: 15px;
+}
+.bg-primary-color {
+    background-color: $primaryColor;
+}
+.c-white {
+    color: #fff;
+}
+.lds-ripple {
+  display: inline-block;
+  position: fixed;
+  width: 80px;
+  height: 80px;
+  z-index: 10000;
+  top: calc(50% - 40px);
+  left: calc(50% - 40px);
+  div {
+    position: absolute;
+    border: 4px solid $primaryColor;
+    opacity: 1;
+    border-radius: 50%;
+    animation: lds-ripple 1s cubic-bezier(0, 0.2, 0.8, 1) infinite;
+    z-index: 100;
+    &:nth-child(2) {
+      animation-delay: -0.5s;
+    }
+  }
+  &::before {
+    content: '';
+    position: fixed;
+    background: #00000026;
+    z-index: 100;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+  }
+}
+@keyframes lds-ripple {
+  0% {
+      top: 36px;
+      left: 36px;
+      width: 0;
+      height: 0;
+      opacity: 1;
+  }
+  100% {
+      top: 0px;
+      left: 0px;
+      width: 72px;
+      height: 72px;
+      opacity: 0;
+  }
+}
+a {
+  color: $primaryColor;
+  &:hover {
+      color: $secondaryColor;
+  }
+}
+.fv-plugins-message-container {
+  .fv-help-block {
+      color: red;
+  }
+}
+.authSection {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  > div {
+      background-color: #f6f6f68c;
+      border-radius: 10px;
+      border: 3px solid #5eb091;
+      box-shadow: 0px 0px 21px 0px #00000088;
+  }
+}
+.my-profile-img {
+  height: 110px;
+  width: 110px;
+  border-radius: 50%;
+  background-size: cover;
+  background-position: center;
+  border: 3px solid $primaryColor;
+}
+
+.custom-tree {
+  .mat-expansion-panel-header:not([aria-disabled=true]) {
+    cursor: pointer;
+    margin-bottom: 0;
+    padding-bottom: 6px;
+    padding-top: 6px;
+    border-radius: 0;
+    padding-left: 10px;
+    border-bottom: 1px solid #ccc;
+  }
+  .mat-expansion-panel-body {
+    padding-left: 15px;
+    padding-bottom: 5px;
+  }
+  span.mat-expansion-indicator {
+      right: 0px;
+      top: 6px;
+      position: absolute;
+      transform: rotate(0deg)!important;
+      &::after {
+        transform: rotate(0deg)!important;
+      }
+  }
+  .mat-expanded > span.mat-expansion-indicator {
+    top: 4px;
+    transform: rotate(0deg)!important;
+    &::after {
+      transform: rotate(90deg)!important;
+    }
+  }
+  .mat-expansion-panel-content {
+      border-left: 1px solid;
+      margin-left: 5px;
+      margin:0;
+      border:0;
+  }
+  .mat-expansion-panel:not([class*=mat-elevation-z]) {
+    box-shadow: none;
+  }
+  .mat-expansion-panel-header,
+  .mat-expansion-panel-header.mat-expanded {
+    height: auto;
+  }
+  .mat-expansion-panel-spacing {
+    margin: 0;
+  }
+  mat-expansion-panel-header.mat-expanded mat-panel-title {
+    color: $primaryColor;
+    font-family: $boldFont;
+  }
+  .noSub {
+    padding: 5px 10px;
+    border-bottom: 1px solid #ccc;
+  }
+  .mat-expansion-indicator::after {
+    border: none;
+    background-image: url('assets/images/iconly_light-outline_arrow_-_left_circle.svg');
+    padding: 10px;
+    transform: rotate(0deg);
+    background-position: center;
+    background-size: 100%;
+  }
+  .mat-expansion-panel-header-title {
+    font-family: $regularFont;
+    font-size: 17px;
+  }
+  .mat-expansion-panel-header-title, .mat-expansion-panel-header-description {
+    margin-right: 0px;
+  }
+}
+.categories-modal-body {
+  min-height: 400px;
+}
+.chips-list {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  border: 1px solid #aaa;
+  border-radius: 5px;
+  padding: 5px 5px 0;
+}
+.chip {
+  margin: 0 5px 5px;
+  display: inline-flex;
+  background-color: #b1cfbd;
+  color: #444;
+  padding: 5px 10px;
+  border-radius: 20px;
+  font-size: 14px;
+  font-weight: 500;
+  align-items: center;
+}
+.cursor-pointer {
+  cursor: pointer;
+}
+.company-card {
+  padding: 10px;
+  box-shadow: 0px 0px 3px 1px #00000055;
+  border-radius: 6px;
+  &:hover {
+    box-shadow: 0px 0px 8px 1px #00000055;
+  }
+  .company-logo {
+    background-position: center;
+    background-size: cover;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+  }
+  .company-name {
+    margin-bottom: 0px;
+    font-size: 16px;
+    font-weight: 600;
+    line-height: 18px;
+  }
+  .company-data {
+    margin-bottom: 0;
+    font-size: 12px;
+    line-height: 16px;
+    font-weight: 400;
+    color: #555;
+  }
+}
+.filter {
+  .mat-form-field-appearance-outline .mat-form-field-infix {
+    border: 0px;
+    padding: 5px;
+    margin-top: 8px;
+  }
+  .mat-form-field-appearance-outline .mat-form-field-wrapper {
+    padding-bottom: 0;
+  }
+}
+
+
+/** Home Page **/
+.categories-title {
+  padding: 10px 30px;
+  font-size: 18px!important;
+  background: $primaryColor;
+  border-top-left-radius: 0px;
+  border-top-right-radius: 20px;
+  color: #fff;
+  border-bottom-left-radius: 20px;
+  border-bottom-right-radius: 0px;
+  position: relative;
+  &::before,
+  &::after {
+    content: " ";
+    position: absolute;
+    left: 10px;
+    bottom: -29px;
+    background-image: url('assets/images/categores-icon.svg');
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: 100% 100%;
+    z-index: 1;
+    height: 40px;
+    width: 12px;
+  }
+  &::after {
+    left: auto;
+    right: 10px;
+  }
+}
+.mat-menu-item:hover:not([disabled]),
+.mat-menu-item.active,
+.mat-menu-item.cdk-program-focused:not([disabled]),
+.mat-menu-item.cdk-keyboard-focused:not([disabled]),
+.mat-menu-item-highlighted:not([disabled]) {
+    background: $primaryColor;
+    color: #fff;
+}
+.btn:focus, .btn.focus {
+  outline: 0;
+  box-shadow: none;
+}
+.categories-list {
+  height: 335px;
+  overflow: auto;
+  box-shadow: 3px 3px 6px 0px rgba(0, 0, 0, 0.16);
+}
+.main-slider {
+  box-shadow: 3px 3px 6px 0px rgba(0, 0, 0, 0.16);
+  .slick-slide:focus {
+    outline: 0;
+  }
+}
+.section {
+  position: relative;
+  .section-title {
+      width: auto;
+      display: inline-block;
+      background: $primaryColor;
+      padding: 10px;
+      color: #fff;
+      position: relative;
+      margin: 0 31px 0;
+      z-index: 2;
+      padding-left: 0;
+      padding-right: 0;
+      font-size: 25px;
+      font-family: $regularFont!important;
+      border-top: 1px solid $primaryColor;
+      border-radius: 25px;
+      &::before,
+      &::after {
+          position: absolute;
+          content: "";
+          background-size: 100% auto;
+          background-repeat: no-repeat;
+          height: 69px;
+          width: 80px;
+          z-index: -1;
+      }
+      &::before {
+          background-image: url('assets/images/section-title-1.png');
+          left: -40px;
+          top: -1px;
+      }
+      &::after {
+          background-image: url('assets/images/section-title-2.png');
+          right: -49px;
+          top: -9px;
+      }
+  }
+  .section-content {
+      background-color: #fff;
+      margin-top: -6px;
+      padding: 20px 10px;
+      box-shadow: 3px 3px 6px 0px rgb(0 0 0 / 16%);
+      position: relative;
+      width: calc(100% - 5px);
+      margin-left: 5px;
+      z-index: 3;
+  }
+  .slider-arrows-section {
+      padding: 0 10px;
+      background: #efefef;
+      position: absolute;
+      top: 14px;
+      right: 0;
+      width: calc(100% - 80px);
+      z-index: 1;
+      display: flex;
+      justify-content: flex-end;
+      button {
+          padding: 3px 10px 10px;
+          display: flex;
+          img {
+              width: 20px;
+              padding-top: 2px;
+          }
+      }
+  }
+}
+.cat-slider {
+  .slick-track {
+      margin-left: 0;
+  }
+  .cat-slide {
+    display: block;
+    text-align: center;
+    padding: 10px;
+    &:focus {
+      outline: 0;
+    }
+    &:hover {
+      .slide-img {
+        box-shadow: 0 0 2px 6px #00000022;
+      }
+    }
+  }
+  .slide-img {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    box-shadow: 0 0 2px 6px #9b9b9b22;
+    margin: 0 auto 10px;
+    background-position: center;
+    background-size: cover;
+  }
+  .slide-daily-img {
+    width: 90%;
+    margin: 0 auto;
+    img {
+      max-height: 200px;
+    }
+  }
+  .slide-title {
+    color: #000;
+    font: normal 18px $regularFont;
+    margin-bottom: 0;
+  }
+}
+.main-tabs {
+  .mat-tab-header {
+    max-width: 1150px;
+    border-bottom: 7px solid #efefef;
+  }
+  .mat-tab-label .mat-tab-label-content {
+    font: 22px/28px $regularFont;
+    color: #000;
+  }
+  .mat-tab-label.mat-tab-label-active .mat-tab-label-content {
+    color: $primaryColor;
+    font: 22px/28px $semiBoldFont;
+  }
+  .mat-tab-group.mat-primary .mat-ink-bar {
+    background-color: transparent;
+  }
+}
+.product-item {
+  box-shadow: 0px 8px 15px 0px #e7eaf0;
+  padding: 10px;
+  display: block;
+  &:hover {
+    box-shadow: 0px 8px 15px 0px #8f8f8f9d;
+  }
+  .product-img {
+    height: 150px;
+    background-position: center;
+    background-size: 100% auto;
+    background-repeat: no-repeat;
+    margin-bottom: 10px;
+  }
+  .product-name {
+    display: block;
+    color: #515c6f;
+    font: 400 16px/18px $regularFont;
+    margin-bottom: 4px;
+  }
+  .product-price {
+    color: #000;
+    font: 700 13px/20px $boldFont;
+    margin-bottom: 10px;
+  }
+}
+/** End Home Page **/
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/** Responsive **/
+@media(max-width: 1200px) {
+  .custom-tree {
+    .mat-expansion-panel-header-title {
+      font-size: 14px;
+    }
+    .mat-expansion-panel-header:not([aria-disabled=true]) {
+      padding-left: 5px;
+    }
+  }
+}
+@media(max-width: 1100px) {
+  .cat-slider {
+    .slide-img {
+      width: 130px;
+      height: 130px;
+    }
+  }
+}
+@media(max-width: 500px) {
+  .section {
+    .section-title {
+      font-size: 18px;
+    }
+  }
+}

@@ -1,0 +1,82 @@
+.btn.focus, .btn:focus {
+    box-shadow: none;
+}
+.custom-tree .mat-expansion-panel-header:not([aria-disabled=true]) {
+    padding-left: 0;
+    padding-right: 10px;
+}
+.custom-tree   .mat-expansion-panel-body {
+    padding-left: 24px;
+    padding-right: 15px;
+}
+.custom-tree span.mat-expansion-indicator {
+    right: auto;
+    left: 0px;
+}
+.mat-expanded > span.mat-expansion-indicator::after {
+    transform: rotate(-90deg)!important;
+}
+.custom-tree .mat-expansion-panel-content {
+    border-left: 0;
+    margin-left: 0;
+}
+.custom-tree .mat-expansion-panel-header-title, .mat-expansion-panel-header-description {
+    margin-left: 0px;
+}
+.categories-title {
+    border-top-left-radius: 20px;
+    border-top-right-radius: 0px;
+    border-bottom-left-radius: 0px;
+    border-bottom-right-radius: 20px;
+}
+.categories-title::before,
+.categories-title::after {
+    left: auto;
+    right: 10px;
+}
+.categories-title::after {
+    left: 10px;
+    right: auto;
+}
+.section {
+    text-align: right;
+}
+.section .section-title::before {
+    left: auto;
+    right: -40px;
+    transform:scaleX(-1);
+}
+.section .section-title::after {
+    right: auto;
+    left: -49px;
+    transform:scaleX(-1);
+}
+.section .section-content {
+    margin-left: 0;
+    margin-right: 5px;
+}
+.section .slider-arrows-section {
+    right: auto;
+    left: 0;
+}
+.section .slider-arrows-section button img {
+    transform: scaleX(-1);
+}
+.cat-slider .slick-track {
+    margin-left: auto;
+    margin-right: 0;
+}
+.section .section-content,
+.main-slider,
+.categories-list {
+    box-shadow: -3px 3px 6px 0px rgb(0 0 0 / 16%);
+}
+
+
+
+
+
+
+
+
+

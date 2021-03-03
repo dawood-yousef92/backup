@@ -1,0 +1,302 @@
+@import '../../../../../assets/css/variables.scss';
+/** Header **/
+#header {
+    position: relative;
+    z-index: 3;
+}
+.header-section {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+.top-small-header {
+    background-color: $primaryColor;
+    display: flex;
+}
+.header-section .logo img,
+.header-section .logo a {
+    width: 100px;
+    height: 100px;
+}
+.header-section .nav-links {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+.header-section .nav-links li {
+    display: inline-block;
+    margin: 0 20px;
+}
+.header-section .nav-links a {
+    font: normal normal normal 18px/33px $semiBoldFont;
+    color: #000;
+    text-transform: uppercase;
+}
+.main-header {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 2;
+    background-color: #ffffff;
+    box-shadow: 1px 1px 10px #000000aa;
+}
+.btn-header-serach {
+    border: 0;
+    background-color: transparent;
+}
+.btn-header-serach.opend {
+    position: absolute;
+    padding: 1px 3px;
+    right: 2px;
+    top: 0;
+}
+.btn-header-serach.opend path {
+    fill: #000;
+}
+.btn-header-profile {
+    padding: 0;
+    width: 52px;
+    height: 52px;
+    border-radius: 50%;
+    background-size: cover;
+    background-position: center;
+}
+.btn-header-serach:focus,
+.btn-header-profile:focus {
+    box-shadow: none;
+    outline: 0;
+} 
+.btn-header-serach svg {
+    width: 20px;
+    height: 20px;
+}
+.btn-header-serach svg path {
+    fill: #000;
+}
+@media(min-width: 1300px) {
+    .custom-container {
+        padding-left: 80px ;
+        padding-right: 80px ;
+    }
+}
+.search-box {
+    opacity: 0;
+    background-color: #ffffffaa;
+    border-radius: 0;
+    border: 0;
+    width: 0;
+    transition: width 0.5s;
+    height: 28px;
+}
+.search-box.opend {
+    opacity: 1;
+    width: 200px;
+}
+.custom-menu {
+    margin-top: 5px;
+}
+.custom-menu .mat-menu-content:not(:empty) {
+    padding-top: 0px;
+    padding-bottom: 0px;
+}
+.custom-menu .mat-focus-indicator.mat-menu-item {
+    outline: 0;
+}
+.descktop-header {
+    display: none;
+    display: flex;
+    align-items: center;
+}
+.btn-default {
+    min-height: 40px;
+    border-radius: 0;
+    border: 0;
+}
+.btn-second-default {
+    min-height: 55px;
+    border-radius: 0;
+    border: 0;
+    font: normal normal normal 18px/33px $regularFont;
+}
+a.btn-second-default span {
+    vertical-align: sub;
+    vertical-align: -webkit-baseline-middle;
+}
+.btn-default:focus,
+.btn-second-default:focus {
+    outline: 0;
+}
+.mobile-header {
+    display: none;
+}
+.sticky {
+    background-color: #f3f7f3f2;
+    position: fixed;
+    z-index: 4;
+    .top-small-header {
+        display: none;
+    }
+}
+.sticky .header-section {
+    padding-top: 8px;
+    padding-bottom: 8px;
+}
+.sticky .header-section .logo img,
+.sticky .header-section .logo a {
+    width: 90px;
+    height: 90px;
+}
+/** End Header **/
+
+/** Responsive **/
+@media(max-width: 1500px) {
+    .search-box.opend {
+        width: 170px;
+        height: 28px;
+    }
+    .header-section .nav-links li {
+        margin: 0 10px;
+    }
+    .header-section .nav-links li a {
+        font-size: 16px;
+    }
+}
+
+@media(max-width: 1300px) {
+    .header-section .nav-links li a {
+        font-size: 14px;
+    }
+    .header-section .logo img,
+    .header-section .logo a {
+        width: 70px;
+        height: 70px;
+    }
+}
+@media(max-width: 1060px) {
+    .descktop-header,
+    .header-links {
+        display: none;
+    }
+    .header-section .logo {
+        flex: 1 1 auto;
+        width: 100%;
+    }
+    .mobile-header {
+        display: block;
+    }
+    .header-section .logo img,
+    .header-section .logo a {
+        width: 60px;
+        height: 60px;
+    }
+    .header-section {
+        display: flex;
+        align-items: center;
+        width: 100%;
+    }
+    .main-home-section {
+        padding-top: 134px;
+        background-size: calc(100% - 63px) auto;
+    }
+    .mobile-menu {
+        position: fixed;
+        height: 100vh;
+        width: 85%;
+        background: #000;
+        z-index: 2;
+        top: 0;
+        right: 0;
+        overflow: hidden;
+        width: 0;
+        transition: width 0.3s;
+    }
+    .mobile-menu:not(.opened) * {
+        display: none;
+    }
+    .mobile-menu.opened {
+        width: 85%;
+    }
+    .mobile-menu.opened::before {
+        content: '';
+        background-color: #00000055;
+        position: fixed;
+        left: 0;
+        top: 0;
+        height: 100vh;
+        width: 100%;
+        z-index: -1;
+    }
+    .profile-img {
+        padding: 0;
+        width: 52px;
+        height: 52px;
+        border-radius: 50%;
+        background-size: cover;
+        background-position: center;
+    }
+    .user-name {
+        font: normal normal normal 18px/33px $regularFont;
+    }
+    .mobile-nav-links {
+        padding: 0;
+        list-style: none;
+        max-height: 400px;
+        overflow: auto;
+    }
+    .mobile-nav-links li {
+        margin-bottom: 10px;
+    }
+    .mobile-nav-links li a {
+        font: normal normal normal 18px/33px $regularFont;
+        color: #fff;
+    }
+    .mobile-search {
+        display: flex;
+        position: absolute;
+        bottom: 5px;
+        width: 95%;
+        left: 0;
+        right: 0;
+        margin: auto;
+        height: 55px;
+        border: 1px solid #fff;
+        padding: 5px;
+    }
+    .mobile-search input {
+        flex-basis: calc(100% - 30px);
+        background-color: transparent;
+        color: #fff;
+        border: 0;
+    }
+    .mobile-search input:focus {
+        outline: 0;
+    }
+    .mobile-search svg {
+        width: 20px;
+    }
+    .mobile-search path {
+        fill: #fff;
+    }
+
+    .btn-second-default {
+        min-height: 40px;
+        font: normal normal normal 12px/21px $regularFont;
+    }
+}
+
+
+@media(max-width: 768px) {
+    .sticky .header-section .logo img,
+    .sticky .header-section .logo a {
+        width: 60px;
+        height: 60px;
+    }
+    .sticky .header-section {
+        padding-top: 5px;
+        padding-bottom: 5px;
+    }
+}
+/** End Responsive **/
