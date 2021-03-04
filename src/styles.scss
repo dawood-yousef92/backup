@@ -241,7 +241,19 @@ a {
     padding-bottom: 0;
   }
 }
-
+.mat-select-panel .mat-optgroup-label {
+  font-size: 18px!important;
+  font-weight: 600;
+  font-family: $boldFont;
+  height: auto!important;
+  line-height: 18px!important;
+  margin-top: 20px;
+  margin-bottom: 5px;
+  color: $primaryColor;
+}
+.mat-checkbox-checked.mat-accent .mat-checkbox-background {
+  background-color: $primaryColor;
+}
 
 /** Home Page **/
 .categories-title {

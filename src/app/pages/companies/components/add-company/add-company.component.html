@@ -23,6 +23,14 @@
                     <mat-error
                         [ngTemplateOutlet]="formError"
                         [ngTemplateOutletContext]="{
+                        validation: 'required',
+                        message: 'Company name is required',
+                        control: createCompany.controls['legalName']
+                        }"
+                    ></mat-error>
+                    <mat-error
+                        [ngTemplateOutlet]="formError"
+                        [ngTemplateOutletContext]="{
                         validation: 'pattern',
                         message: 'Company name is invalid',
                         control: createCompany.controls['legalName']
@@ -49,32 +57,47 @@
                 </div>
                 <div class="col-md-6 mb-3">
                     <mat-form-field class="w-100">
-                        <mat-select formControlName="businessType" placeholder="Company Business Type" (selectionChange)="getCategoriesByBusinessType()">
+                        <mat-select formControlName="businessType" placeholder="Main Major Type" (selectionChange)="getCategoriesByBusinessType()">
                             <mat-option *ngFor="let companyBusinessType of companyBusinessTypes" [value]="companyBusinessType.key">{{companyBusinessType.value}}</mat-option>
                         </mat-select>
                     </mat-form-field>
                 </div>
-                <div class="col-md-6 mb-3">
-                    <mat-form-field class="w-100">
-                        <mat-select formControlName="companyCategoryIds" placeholder="Categories" multiple>
+                <div class="col-md-12 mb-3">
+                    <!-- <mat-form-field class="w-100">
+                        <mat-select placeholder="Sub Major Type" (selectionChange)="getSubCategories($event)" multiple>
                             <div class="p-2 filter">
                                 <mat-form-field appearance="outline" class="w-100">
                                     <input matInput (keyup)="search($event.target.value,'categories')" (keydown)="$event.stopPropagation()" class="w-100">
                                     <mat-icon matSuffix>search</mat-icon>
                                 </mat-form-field>
                             </div>
-                            <mat-option *ngFor="let cat of categories" [value]="cat.id" [ngClass]="{'d-none': !cat.name.toLowerCase().includes(categoriesFilter.toLowerCase())}">{{cat.name}}</mat-option>
+                            <mat-option *ngFor="let cat of categories" [value]="cat.id" [ngClass]="{'d-none': !cat.name?.toLowerCase().includes(categoriesFilter.toLowerCase())}">{{cat.name}}</mat-option>
                         </mat-select>
-                    </mat-form-field>
-                    <!-- <button type="button" class="btn btn-success mb-2" (click)="openModal(catModal)">Select Categories</button>
+                    </mat-form-field> -->
+                    <button *ngIf="createCompany.controls.businessType.value" type="button" class="btn btn-success mb-2" (click)="openModal(catModal)">Select Categories</button>
                     <div class="chips-list" *ngIf="selectedCat.length > 0">
                         <span class="chip" *ngFor="let cat of selectedCat">
                             {{cat.name}} 
                             <mat-icon role="img" (click)="removeCat(cat)" class="cursor-pointer ml-2 mat-icon notranslate mat-chip-remove mat-chip-trailing-icon material-icons">cancel</mat-icon>
                         </span>
-                    </div> -->
+                    </div>
                 </div>
-                <div class="col-md-6 mb-3">
+                <!-- <div class="col-md-6 mb-3">
+                    <mat-form-field class="w-100">
+                        <mat-select formControlName="companyCategoryIds" placeholder="Categories" multiple>
+                            <div class="p-2 filter">
+                                <mat-form-field appearance="outline" class="w-100">
+                                    <input matInput (keyup)="search($event.target.value,'subCategories')" (keydown)="$event.stopPropagation()" class="w-100">
+                                    <mat-icon matSuffix>search</mat-icon>
+                                </mat-form-field>
+                            </div>
+                            <mat-optgroup *ngFor="let group of subCategories" [label]="group.name">
+                                <mat-option *ngFor="let cat of group.categories" [value]="cat?.id" [ngClass]="{'d-none': !cat.name?.toLowerCase().includes(subCategoriesFilter.toLowerCase())}">{{cat?.name}}</mat-option>
+                            </mat-optgroup>
+                        </mat-select>
+                    </mat-form-field>
+                </div> -->
+                <div class="col-md-3 mb-3">
                     <mat-form-field class="w-100">
                         <mat-select formControlName="countryId" placeholder="Country" (selectionChange)="getCities($event)">
                             <div class="p-2 filter">
@@ -87,19 +110,19 @@
                         </mat-select>
                     </mat-form-field>
                 </div>
-                <div class="col-md-6 mb-3">
+                <div class="col-md-3 mb-3">
                     <mat-form-field class="w-100">
                         <mat-select formControlName="cityId" placeholder="City">
                             <mat-option *ngFor="let city of cities" [value]="city.id">{{city.name}}</mat-option>
                         </mat-select>
                     </mat-form-field>
                 </div>
-                <div class="col-md-6 mb-3">
+                <div class="col-md-3 mb-3">
                     <mat-form-field class="w-100">
                         <input formControlName="street" matInput placeholder="Street Name"/>    
                     </mat-form-field>
                 </div>
-                <div class="col-md-6 mb-3">
+                <div class="col-md-3 mb-3">
                     <mat-form-field class="w-100">
                         <input formControlName="buildingNo" matInput placeholder="Building Number"/>    
                     </mat-form-field>
@@ -126,15 +149,16 @@
                             [ngTemplateOutlet]="formError"
                             [ngTemplateOutletContext]="{
                             validation: 'pattern',
-                            message: 'Phone is invalid',
-                            control: createCompany.controls['phone']
+                            message: 'Mobile is invalid',
+                            control: createCompany.controls['mobile']
                             }"
                         ></mat-error>
                     </mat-form-field>
                 </div>
             </div>
+                <!-- <app-upload-file (selectFile)="selectFile($event)" [extentions]="'.pdf, .PDF'" [color]="'blue'" [size]="5" [type]="'pdf'" [selectedFile]="joinComunnityData.form" class="col-12"></app-upload-file> -->
             <div>
-                <button type="submit" class="btn btn-success btn-lg" [disabled]="createCompany.invalid">
+                <button type="submit" class="btn btn-success btn-lg px-5" [disabled]="createCompany.invalid">
                     Save
                 </button>
             </div>
@@ -151,10 +175,10 @@
   </mat-error>
 </ng-template>
 
-<!-- <ng-template #subCat let-categories="categories">
+<ng-template #subCat let-categories="categories">
     <ng-container *ngIf="categories?.length > 0">
         <ng-container *ngFor="let cat of categories">
-            <mat-expansion-panel *ngIf="cat.categories?.length > 0">
+            <!-- <mat-expansion-panel *ngIf="cat.categories?.length > 0">
                 <mat-expansion-panel-header>
                     <mat-panel-title>
                         <mat-checkbox [checked]="isChecked(cat)" (click)="clickCat($event)" (change)="selectCat($event,cat)" class="mx-2"></mat-checkbox> 
@@ -163,9 +187,9 @@
                 </mat-expansion-panel-header>
                 <div [ngTemplateOutlet]="subCat" [ngTemplateOutletContext]="{categories:cat.categories}">
                 </div>
-            </mat-expansion-panel>
-            <mat-panel-title *ngIf="cat?.categories?.length === 0" class="mat-expansion-panel-header-title noSub">
-                <mat-checkbox [checked]="isChecked(cat)" (click)="clickCat($event)" (change)="selectCat($event,cat)" class="mx-2"></mat-checkbox> 
+            </mat-expansion-panel> -->
+            <mat-panel-title class="mat-expansion-panel-header-title noSub">
+                <mat-checkbox [checked]="isChecked(cat)" (click)="clickCat($event)" (change)="selectCat($event,cat,'sub')" class="mx-2"></mat-checkbox> 
                 {{cat?.name}}
             </mat-panel-title>
         </ng-container>
@@ -181,7 +205,7 @@
             <mat-expansion-panel *ngFor="let cat of categories">
                 <mat-expansion-panel-header>
                     <mat-panel-title>
-                        <mat-checkbox [checked]="isChecked(cat)" (click)="clickCat($event)" (change)="selectCat($event,cat)" class="mx-2"></mat-checkbox> 
+                        <mat-checkbox [checked]="isChecked(cat)" (click)="clickCat($event)" (change)="selectCat($event,cat,'main')" class="mx-2"></mat-checkbox> 
                         {{cat.name}}
                     </mat-panel-title>
                 </mat-expansion-panel-header>
@@ -190,4 +214,4 @@
             </mat-expansion-panel>
         </mat-accordion>    
     </div>
-</ng-template> -->
+</ng-template>

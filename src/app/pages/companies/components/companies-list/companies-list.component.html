@@ -2,15 +2,17 @@
     <div class="col-12">
         <h1>My Comapnies</h1>
     </div>
-    <a href="#" target="_blank" class="col-lg-3 col-md-6 mb-3" *ngFor="let company of myCompanies">
-        <div class="company-card d-flex flex-wrap align-items-center">
-            <div class="company-logo" style="background-image:url('../../../../../assets/images/077-jordan.svg')"></div>
-            <div class="pl-2">
-                <h2 class="company-name">{{company.legalName}}</h2>
-                <p class="company-data">{{company.country}}, {{company.city}}</p>
+    <ng-container *ngFor="let company of myCompanies">
+        <a [href]="company.tenantReturnUrl" target="_blank" class="col-lg-3 col-md-6 mb-3" >
+            <div class="company-card d-flex flex-wrap align-items-center">
+                <div class="company-logo" style="background-image:url('../../../../../assets/images/077-jordan.svg')"></div>
+                <div class="pl-2">
+                    <h2 class="company-name">{{company.legalName}}</h2>
+                    <p class="company-data">{{company.country}}, {{company.city}}</p>
+                </div>
             </div>
-        </div>
-    </a>
+        </a>
+    </ng-container>
     <div class="mb-3 col-12">
         <a routerLink="add-company" class="btn btn-success btn-lg">Add Company +</a>
     </div>

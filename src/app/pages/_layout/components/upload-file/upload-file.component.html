@@ -1,0 +1,19 @@
+<div class="row">
+    <div class="col-md-12 mb-3">
+        <div class="form-group mb-1">
+            <input (change)="readURL($event)" type="file" id="dropFiles" class="d-none" accept="{{extentions}}"/>
+            <div (drop)="dropEvent($event)" (dragover)="dragOverEvent($event)" (dragend)="dragendEvent($event)" id="fileHolder" class="d-flex align-items-center drag-area {{color}}">
+                 <div class="w-100 px-3">
+                     <img *ngIf="icon" class="upload-file-icon" [src]="icon" alt="icon">
+                     <p *ngIf="selectedFile" class="text-center c-white paragraph file-name mb-0">{{selectedFile.name}}</p>
+                     <p *ngIf="!selectedFile" class="text-center c-white paragraph mb-1">Drag and drop file here</p>
+                     <p class="text-center c-white paragraph mb-1">-------------------------------</p>
+                     <button (click)="clickInput()" class="btn btn-default bg-transparent px-5 mb-2">
+                         Select your file
+                     </button>
+                 </div>
+            </div>
+        </div>
+        <p class="card-hint c-white"><span [ngClass]="{'c-red' : errorImageSize}">Allowed size is {{size}}M | Allowed format is {{extentions}}</span></p>
+    </div>
+</div>

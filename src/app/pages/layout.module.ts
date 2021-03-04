@@ -11,6 +11,7 @@ import {MatIconModule} from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatSelectModule } from '@angular/material/select';
+import { UploadFileComponent } from './_layout/components/upload-file/upload-file.component';
 
 @NgModule({
   declarations: [
@@ -18,6 +19,7 @@ import { MatSelectModule } from '@angular/material/select';
     LanguageSelectorComponent,
     HeaderComponent,
     FooterComponent,
+    UploadFileComponent,
   ],
   imports: [
     CommonModule,

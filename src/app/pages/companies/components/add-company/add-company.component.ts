@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, TemplateRef, ViewChild } from '@angular/core';
 import {  FormBuilder, FormControl, Validators, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
@@ -13,7 +13,7 @@ import { CompaniesService } from '../../companies.service';
   styleUrls: ['./add-company.component.scss']
 })
 export class AddCompanyComponent implements OnInit {
-
+  @ViewChild("catModal") catModal: TemplateRef<any>;
   errorImageSize:boolean = false;
   selectedImageUrl:any = null;
   defaultImage = './assets/images/defaultuser.png';
@@ -28,7 +28,9 @@ export class AddCompanyComponent implements OnInit {
   cities:any[] = [];
   currencies:any[] = [];
   categoriesFilter:string = '';
+  subCategoriesFilter:string = '';
   countriesFilter:string = '';
+  subCategories:any[] = [];
 
   constructor( private router: Router,
     private fb: FormBuilder, 
@@ -45,6 +47,7 @@ export class AddCompanyComponent implements OnInit {
       legalName: [
         '',
         Validators.compose([
+          Validators.required,
           Validators.pattern("[a-zA-Z0-9 ]+"),
         ]),
       ],
@@ -95,6 +98,10 @@ export class AddCompanyComponent implements OnInit {
     });
   }
 
+  // selectFile(e) {
+  //   this.joinComunnityData.form = e.file;
+  // }
+
   openModal(content) {
     this.modalService.open(content, { centered: true } );
   }
@@ -103,12 +110,36 @@ export class AddCompanyComponent implements OnInit {
     e.stopPropagation();
   }
 
-  selectCat(e,cat) {
-    if(this.selectedCat.includes(cat)) {
-      this.selectedCat.splice(this.selectedCat.indexOf(cat),1);
+  selectCat(e,cat,type) {
+    if(type === 'main') {
+      if(this.selectedCat.includes(cat)) {
+        cat.categories.map((item) => {
+          if(this.selectedCat.includes(item)) {
+            this.selectedCat.splice(this.selectedCat.indexOf(item),1);
+          }
+        })
+        this.selectedCat.splice(this.selectedCat.indexOf(cat),1);
+      }
+      else {
+        cat.categories.map((item) => {
+          if(!this.selectedCat.includes(item)) {
+            this.selectedCat.push(item);
+          }
+        })
+        this.selectedCat.push(cat);
+      }
     }
-    else {
-      this.selectedCat.push(cat);
+    else if(type === 'sub') {
+      if(this.selectedCat.includes(cat)) {
+        this.selectedCat.splice(this.selectedCat.indexOf(cat),1);
+      }
+      else {
+        this.selectedCat.push(cat);
+        let parent = this.categories.find(item => item.id === cat.parentId);
+        if(!this.selectedCat.includes(parent)) {
+          this.selectedCat.push(parent);
+        }
+      }
     }
   }
 
@@ -132,8 +163,16 @@ export class AddCompanyComponent implements OnInit {
   }
 
   getCategoriesByBusinessType() {
+    this.selectedCat = [];
+    this.loderService.setIsLoading = true;
     this.companiesService.getCategoriesByBusinessType(this.createCompany.controls.businessType.value).subscribe((data) => {
       this.categories = data.result.productsCategoryItem;
+      this.createCompany.get('companyCategoryIds').setValue(null);
+      this.subCategories = [];
+      this.openModal(this.catModal);
+      this.loderService.setIsLoading = false;
+    },(error) => {
+      this.loderService.setIsLoading = false;
     });
   }
 
@@ -202,9 +241,24 @@ export class AddCompanyComponent implements OnInit {
     if(type === 'categories') {
       this.categoriesFilter = e;
     }
+    else if(type === 'subCategories') {
+      this.subCategoriesFilter = e;
+    }
     else if(type === 'countries') {
       this.countriesFilter = e;
     }
+  }
+
+  getSubCategories(e) {
+    console.log(e);
+    this.subCategories = [];
+    e.value.map((val) => {
+      this.categories.find((item) => {
+        if(!this.subCategories.includes(item) && item.id == val) {
+          this.subCategories.push(item);
+        }
+      });
+    })
   }
 
   ngOnInit(): void {
@@ -217,6 +271,11 @@ export class AddCompanyComponent implements OnInit {
 
   submit() {
     this.loderService.setIsLoading = true;
+    let cats = []
+    for(let i = 0; i < this.selectedCat.length; i++) {
+      cats.push(this.selectedCat[i].id);
+    }
+    this.createCompany.get('companyCategoryIds').setValue(cats);
     this.companiesService.createCompany(this.createCompany.value).subscribe((data) => {
       this.loderService.setIsLoading = false;
       this.toaster.success(data.result);
