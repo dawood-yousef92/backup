@@ -1,7 +1,7 @@
 import { Component, OnInit, TemplateRef, ViewChild } from '@angular/core';
 import {  FormBuilder, FormControl, Validators, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
-import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { ModalDismissReasons, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ToastrService } from 'ngx-toastr';
 import { AuthService } from 'src/app/modules/auth';
 import { LoaderService } from 'src/app/modules/auth/_services/loader.service';
@@ -14,6 +14,7 @@ import { CompaniesService } from '../../companies.service';
 })
 export class AddCompanyComponent implements OnInit {
   @ViewChild("catModal") catModal: TemplateRef<any>;
+  closeResult = '';
   errorImageSize:boolean = false;
   selectedImageUrl:any = null;
   defaultImage = './assets/images/defaultuser.png';
@@ -31,6 +32,7 @@ export class AddCompanyComponent implements OnInit {
   subCategoriesFilter:string = '';
   countriesFilter:string = '';
   subCategories:any[] = [];
+  documents:File[] = [];
 
   constructor( private router: Router,
     private fb: FormBuilder, 
@@ -98,12 +100,25 @@ export class AddCompanyComponent implements OnInit {
     });
   }
 
-  // selectFile(e) {
-  //   this.joinComunnityData.form = e.file;
-  // }
+  selectFiles(e) {
+    this.documents = e.documents;
+  }
 
   openModal(content) {
-    this.modalService.open(content, { centered: true } );
+    this.modalService.open(content, { centered: true } ).result.then((result) => {
+      this.closeResult = `Closed with: ${result}`;
+    }, (reason) => {
+      this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
+    });
+  }
+  private getDismissReason(reason: any): string {
+    if (reason === ModalDismissReasons.ESC) {
+      return 'by pressing ESC';
+    } else if (reason === ModalDismissReasons.BACKDROP_CLICK) {
+      return 'by clicking on a backdrop';
+    } else {
+      return `with: ${reason}`;
+    }
   }
 
   clickCat(e) {
@@ -127,6 +142,10 @@ export class AddCompanyComponent implements OnInit {
           }
         })
         this.selectedCat.push(cat);
+        let parent = e.source._elementRef.nativeElement.offsetParent;
+        if(!(parent as HTMLElement).classList.contains('mat-expanded')) {
+          e.source._elementRef.nativeElement.offsetParent.click();
+        }
       }
     }
     else if(type === 'sub') {

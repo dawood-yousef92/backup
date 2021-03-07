@@ -12,10 +12,11 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatSelectModule } from '@angular/material/select';
 import {MatExpansionModule} from '@angular/material/expansion';
 import {MatIconModule} from '@angular/material/icon';
+import { UploadDocumentsComponent } from './components/upload-documents/upload-documents.component';
 
 
 @NgModule({
-  declarations: [CompaniesComponent, AddCompanyComponent, CompaniesListComponent],
+  declarations: [CompaniesComponent, AddCompanyComponent, CompaniesListComponent, UploadDocumentsComponent],
   imports: [
     CommonModule,
     TranslationModule,
