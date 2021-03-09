@@ -43,8 +43,8 @@ export class AddCompanyComponent implements OnInit {
 
   initForm() {
     this.createCompany = this.fb.group({
-      logoPath: [
-        ''
+      image: [
+        null
       ],
       legalName: [
         '',
@@ -227,7 +227,7 @@ export class AddCompanyComponent implements OnInit {
     this.selectedImageUrl = null;
     (document.getElementById('photoInput') as HTMLInputElement).value = null;
     this.changeProfileImage = null;
-    this.createCompany.get('logoPath').setValue(null);
+    this.createCompany.get('image').setValue(null);
   }
 
   readURL(e) {
@@ -290,12 +290,30 @@ export class AddCompanyComponent implements OnInit {
 
   submit() {
     this.loderService.setIsLoading = true;
+    var formData: FormData = new FormData();
     let cats = []
     for(let i = 0; i < this.selectedCat.length; i++) {
       cats.push(this.selectedCat[i].id);
     }
     this.createCompany.get('companyCategoryIds').setValue(cats);
-    this.companiesService.createCompany(this.createCompany.value).subscribe((data) => {
+
+    formData.append('image',this.changeProfileImage as any, this.changeProfileImage['name']);
+    formData.append('legalName',this.createCompany.controls.legalName.value);
+    formData.append('adminEmail',this.createCompany.controls.adminEmail.value);
+    formData.append('businessType',this.createCompany.controls.businessType.value);
+    formData.append('description',this.createCompany.controls.description.value);
+    formData.append('buildingNo',this.createCompany.controls.buildingNo.value);
+    formData.append('street',this.createCompany.controls.street.value);
+    formData.append('phone',this.createCompany.controls.phone.value);
+    formData.append('mobile',this.createCompany.controls.mobile.value);
+    formData.append('countryId',this.createCompany.controls.countryId.value);
+    formData.append('cityId',this.createCompany.controls.cityId.value);
+    formData.append('currencyId',this.createCompany.controls.currencyId.value);
+    formData.append('companyCategoryIds',this.createCompany.controls.companyCategoryIds.value);
+    for(let i =0; i < this.documents.length; i++){
+      formData.append("Attachments[]", this.documents[i] as any, this.documents[i]['name']);
+    }
+    this.companiesService.createCompany(formData).subscribe((data) => {
       this.loderService.setIsLoading = false;
       this.toaster.success(data.result);
       this.router.navigate(['/companies']);
