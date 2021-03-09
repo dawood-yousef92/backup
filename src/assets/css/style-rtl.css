@@ -71,11 +71,14 @@
 .categories-list {
     box-shadow: -3px 3px 6px 0px rgb(0 0 0 / 16%);
 }
-
-
-
-
-
+.categories-accordion > mat-expansion-panel {
+    box-shadow: -11px 13px 6px -8px rgb(0 0 0 / 16%)!important;
+}
+.categories-accordion > mat-expansion-panel .mat-expansion-panel-header .mat-expansion-indicator {
+    right: auto;
+    left: 40px;
+    transform: rotate(180deg)!important; 
+}
 
 
 

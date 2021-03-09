@@ -1,19 +1,27 @@
 <div class="row mb-4">
     <div class="col-lg-3 col-md-4 mb-3">
-        <h4 class="categories-title text-center mb-0">Categories</h4>
-        <div class="categories-list py-4 px-3">
-            <mat-accordion class="custom-tree">
-                <mat-expansion-panel *ngFor="let cat of categories">
-                    <mat-expansion-panel-header>
-                        <mat-panel-title>
-                            {{cat.name}}
-                        </mat-panel-title>
-                    </mat-expansion-panel-header>
-                    <div *ngIf="cat.categories?.length > 0" [ngTemplateOutlet]="subCat" [ngTemplateOutletContext]="{categories:cat.categories}">
-                    </div>
-                </mat-expansion-panel>
-            </mat-accordion> 
-        </div>
+        <mat-accordion class="categories-accordion">
+            <mat-expansion-panel>
+                <mat-expansion-panel-header>
+                    <mat-panel-title>
+                        <h4 class="categories-title text-center mb-0">Categories</h4>
+                    </mat-panel-title>
+                </mat-expansion-panel-header>
+                <div class="categories-list py-4 px-3">
+                    <mat-accordion class="custom-tree">
+                        <mat-expansion-panel *ngFor="let cat of categories">
+                            <mat-expansion-panel-header>
+                                <mat-panel-title>
+                                    {{cat.name}}
+                                </mat-panel-title>
+                            </mat-expansion-panel-header>
+                            <div *ngIf="cat.categories?.length > 0" [ngTemplateOutlet]="subCat" [ngTemplateOutletContext]="{categories:cat.categories}">
+                            </div>
+                        </mat-expansion-panel>
+                    </mat-accordion> 
+                </div>
+            </mat-expansion-panel>
+        </mat-accordion>
     </div>
     <div class="col-lg-9 col-md-8">
         <ngx-slick-carousel class="carousel main-slider" #slickModal="slick-carousel" [config]="slideConfig">

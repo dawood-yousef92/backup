@@ -1,8 +1,8 @@
 @import '../../../../../assets/css/variables.scss';
 /** Footer **/
 .footer-section {
-    background-color: #6a9263;
-    padding: 10px 0;
+    background-color: $primaryColor;
+    padding: 30px 0;
 }
 .footer-content > div {
     margin-right: 20px;
@@ -36,7 +36,7 @@
     height: 24px;
 }
 .footer-text {
-    font: normal normal normal 20px/33px $semiBoldFont;
+    font: normal normal normal 16px/32px $semiBoldFont;
     color: #fff;
     margin-bottom: 0;
 }
