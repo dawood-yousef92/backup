@@ -97,15 +97,11 @@ export class AddCompanyComponent implements OnInit {
       verified: [
         true
       ],
-      attachments: [
-        FileList
-      ]
     });
   }
 
   selectFiles(e) {
     this.documents = e.documents;
-    this.createCompany.get('attachments').setValue(this.documents);
   }
 
   openModal(content) {
@@ -293,8 +289,9 @@ export class AddCompanyComponent implements OnInit {
   }
 
   submit() {
-    // this.loderService.setIsLoading = true;
+    this.loderService.setIsLoading = true;
     var formData: FormData = new FormData();
+    var formData2: FormData = new FormData();
     let cats = []
     for(let i = 0; i < this.selectedCat.length; i++) {
       cats.push(this.selectedCat[i].id);
@@ -316,13 +313,9 @@ export class AddCompanyComponent implements OnInit {
     formData.append('cityId',this.createCompany.controls.cityId.value);
     formData.append('currencyId',this.createCompany.controls.currencyId.value);
     formData.append('companyCategoryIds',this.createCompany.controls.companyCategoryIds.value);
-    formData.append('attachments',this.createCompany.controls.attachments.value);
-    // for(let i = 0; i < this.documents.length; i++) {
-    //   formData.append("attachments[]", this.documents[i] as File, this.documents[i]['name']);
-    // }
-    // console.log(this.documents);
-    // console.log(this.createCompany.controls.attachments.value);
-    // console.log(formData.get('attachments'));
+    for(let i =0; i < this.documents.length; i++){
+      formData.append("attachments", this.documents[i] as File, this.documents[i]['name']);
+    }
     this.companiesService.createCompany(formData).subscribe((data) => {
       this.loderService.setIsLoading = false;
       this.toaster.success(data.result);
