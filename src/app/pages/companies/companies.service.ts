@@ -12,30 +12,30 @@ export class CompaniesService {
     constructor(private http: HttpClient){}
 
     getCompanyBusinessTypes(): Observable<any> {
-        return this.http.get<any>(this.baseUrl+'/Companies/GetCompanyBusinessTypes');
+        return this.http.get<any>('Companies/GetCompanyBusinessTypes');
     }
     
     getCategoriesByBusinessType(businessType): Observable<any> {
-        return this.http.post<any>(this.baseUrl+'/Companies/GetCategoriesByBusinessType', {businessType:businessType});
+        return this.http.post<any>('Companies/GetCategoriesByBusinessType', {businessType:businessType});
     }
 
     getCountries(): Observable<any> {
-        return this.http.post<any>(this.baseUrl+'/Countries/GetCountries', {});
+        return this.http.post<any>('Countries/GetCountries', {});
     }
 
     getCitiesByCountyId(id): Observable<any> {
-        return this.http.post<any>(this.baseUrl+'/Cities/GetCitiesByCountyId', {countryId: id});
+        return this.http.post<any>('Cities/GetCitiesByCountyId', {countryId: id});
     }
 
     getCurrencies(): Observable<any> {
-        return this.http.post<any>(this.baseUrl+'/Currencies/GetCurrencies', {});
+        return this.http.post<any>('Currencies/GetCurrencies', {});
     }
 
     createCompany(formData): Observable<any> {
-        return this.http.post<any>(this.baseUrl+'/Companies/CreateCompany', formData);
+        return this.http.post<any>('Companies/CreateCompany', formData);
     }
 
     getCompanyByCreatorEmail(): Observable<any> {
-        return this.http.post<any>(this.baseUrl+'/Companies/GetCompanyByCreatorEmail', {});
+        return this.http.post<any>('Companies/GetCompanyByCreatorEmail', {});
     }
 }

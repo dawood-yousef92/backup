@@ -86,13 +86,17 @@
                 <div class="col-md-3 mb-3">
                     <mat-form-field class="w-100">
                         <mat-select formControlName="countryId" placeholder="Country" (selectionChange)="getCities($event)" required>
-                            <div class="p-2 filter">
+                            <!-- <div class="p-2 filter">
                                 <mat-form-field appearance="outline" class="w-100">
                                     <input matInput (keyup)="search($event.target.value,'countries')" (keydown)="$event.stopPropagation()" class="w-100">
                                     <mat-icon matSuffix>search</mat-icon>
                                 </mat-form-field>
-                            </div>
-                            <mat-option *ngFor="let country of countries" [value]="country.id" [ngClass]="{'d-none': !country.name.toLowerCase().includes(countriesFilter.toLowerCase())}">{{country.name}}</mat-option>
+                            </div> -->
+                            <mat-option *ngFor="let country of countries" [value]="country.id" [ngClass]="{'d-none': !country?.name?.toLowerCase()?.includes(countriesFilter?.toLowerCase())}">
+                                <div class="d-flex align-items-center">
+                                    <span class="symbol symbol-20 mr-3"><img [src]="country.flag"></span>{{country.name}}
+                                </div>
+                            </mat-option>
                         </mat-select>
                     </mat-form-field>
                 </div>
@@ -116,7 +120,7 @@
                 <div class="col-md-6 mb-3">
                     <mat-form-field class="w-100">
                         <input formControlName="phone" matInput placeholder="Phone" required/>
-                        <span *ngIf="getCountryCode()" matPrefix class="mr-4">{{getCountryCode()}}</span>  
+                        <span *ngIf="getCountryCode()" matPrefix class="mr-4">+{{getCountryCode()}}</span>  
                         <mat-error
                             [ngTemplateOutlet]="formError"
                             [ngTemplateOutletContext]="{
@@ -130,7 +134,7 @@
                 <div class="col-md-6 mb-3">
                     <mat-form-field class="w-100">
                         <input formControlName="mobile" matInput placeholder="Mobile" required/>
-                        <span *ngIf="getCountryCode()" matPrefix class="mr-4">{{getCountryCode()}}</span>  
+                        <span *ngIf="getCountryCode()" matPrefix class="mr-4">+{{getCountryCode()}}</span>  
                         <mat-error
                             [ngTemplateOutlet]="formError"
                             [ngTemplateOutletContext]="{
@@ -218,5 +222,8 @@
                 </div>
             </mat-expansion-panel>
         </mat-accordion>    
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-success" (click)="modal.dismiss('Cross click')">Done</button>
     </div>
 </ng-template>

@@ -107,7 +107,17 @@ a {
   background-position: center;
   border: 3px solid $primaryColor;
 }
-
+.symbol {
+  display: inline-block;
+  flex-shrink: 0;
+  position: relative;
+  border-radius: 0.42rem;
+  &.symbol-20 > img {
+    width: 100%;
+    max-width: 20px;
+    height: 20px;
+  }
+}
 .custom-tree {
   .mat-expansion-panel-header:not([aria-disabled=true]) {
     cursor: pointer;
@@ -213,8 +223,8 @@ a {
   .company-logo {
     background-position: center;
     background-size: cover;
-    width: 50px;
-    height: 50px;
+    width: 70px;
+    height: 70px;
     border-radius: 50%;
   }
   .company-name {

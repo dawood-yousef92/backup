@@ -5,7 +5,7 @@
     padding-left: 0;
     padding-right: 10px;
 }
-.custom-tree   .mat-expansion-panel-body {
+.custom-tree .mat-expansion-panel-body {
     padding-left: 24px;
     padding-right: 15px;
 }
@@ -79,7 +79,3 @@
     left: 40px;
     transform: rotate(180deg)!important; 
 }
-
-
-
-

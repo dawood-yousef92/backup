@@ -185,7 +185,7 @@ export class AddCompanyComponent implements OnInit {
     this.selectedCat = [];
     this.loderService.setIsLoading = true;
     this.companiesService.getCategoriesByBusinessType(this.createCompany.controls.businessType.value).subscribe((data) => {
-      this.categories = data.result.productsCategoryItem;
+      this.categories = data.result.productsCategoryItem.concat(data.result.servicesCategoryItem);
       this.createCompany.get('companyCategoryIds').setValue(null);
       this.subCategories = [];
       this.openModal(this.catModal);
@@ -197,14 +197,19 @@ export class AddCompanyComponent implements OnInit {
 
   getCountries() {
     this.companiesService.getCountries().subscribe((data) => {
-      this.countries = data.result.countries;
+      // this.countries = data.result.countries;
+      this.countries.push(data.result.countries.find(item => item.id === '7f4c2c35-feb9-4f6c-9159-9d9280bd047c'));
     });
   }
 
   getCities(e) {
+    this.loderService.setIsLoading = true;
     this.createCompany.get('cityId').setValue('');
     this.companiesService.getCitiesByCountyId(e.value).subscribe((data) => {
       this.cities = data.result.cities;
+      this.loderService.setIsLoading = false;
+    }, (error) => {
+      this.loderService.setIsLoading = false;
     });
   }
 
