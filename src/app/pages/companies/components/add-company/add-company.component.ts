@@ -1,6 +1,6 @@
 import { Component, OnInit, TemplateRef, ViewChild } from '@angular/core';
 import {  FormBuilder, FormControl, Validators, FormGroup } from '@angular/forms';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { ModalDismissReasons, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ToastrService } from 'ngx-toastr';
 import { AuthService } from 'src/app/modules/auth';
@@ -33,20 +33,22 @@ export class AddCompanyComponent implements OnInit {
   countriesFilter:string = '';
   subCategories:any[] = [];
   documents:File[] = [];
+  companyId:any;
 
   constructor( private router: Router,
     private fb: FormBuilder, 
     private loderService: LoaderService,
     private toaster: ToastrService,
     private companiesService:CompaniesService,
-    private modalService: NgbModal) { }
+    private modalService: NgbModal,
+    private route: ActivatedRoute,) { }
 
   initForm() {
     this.createCompany = this.fb.group({
       image: [
         null
       ],
-      legalName: [
+      commercialName: [
         '',
         Validators.compose([
           Validators.required,
@@ -220,7 +222,7 @@ export class AddCompanyComponent implements OnInit {
   }
 
   getCountryCode() {
-    return this.countries.find(item => item.id === this.createCompany.controls.countryId.value)?.countryCode;
+    return this.countries.find(item => item?.id === this.createCompany.controls.countryId.value)?.countryCode;
   }
 
   changePhoto() {
@@ -285,12 +287,24 @@ export class AddCompanyComponent implements OnInit {
     })
   }
 
+  getCompanyById() {
+    this.companiesService.getCompanyById(this.companyId).subscribe((data) => {
+      console.log(data);
+    });
+  }
+
   ngOnInit(): void {
     this.initForm();
     this.getCompanyBusinessTypes();
     // this.getCategoriesByBusinessType();
     this.getCountries();
     this.getCurrencies();
+    this.route.params.subscribe((data) => {
+      this.companyId = data.id;
+      if(this.companyId) {
+        this.getCompanyById();
+      }
+    });
   }
 
   submit() {
@@ -306,7 +320,7 @@ export class AddCompanyComponent implements OnInit {
     if(this.changeProfileImage) {
       formData.append('image',this.changeProfileImage as any, this.changeProfileImage['name']);
     }
-    formData.append('legalName',this.createCompany.controls.legalName.value);
+    formData.append('commercialName',this.createCompany.controls.commercialName.value);
     formData.append('adminEmail',this.createCompany.controls.adminEmail.value);
     formData.append('businessType',this.createCompany.controls.businessType.value);
     formData.append('description',this.createCompany.controls.description.value);

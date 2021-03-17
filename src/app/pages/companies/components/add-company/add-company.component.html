@@ -18,14 +18,14 @@
                 </div>
                 <div class="col-md-6 mb-3">
                     <mat-form-field class="w-100">
-                        <input formControlName="legalName" matInput placeholder="Company Name" required/>    
+                        <input formControlName="commercialName" matInput placeholder="Company Name" required/>    
                     </mat-form-field>
                     <mat-error
                         [ngTemplateOutlet]="formError"
                         [ngTemplateOutletContext]="{
                         validation: 'required',
                         message: 'Company name is required',
-                        control: createCompany.controls['legalName']
+                        control: createCompany.controls['commercialName']
                         }"
                     ></mat-error>
                     <mat-error
@@ -33,7 +33,7 @@
                         [ngTemplateOutletContext]="{
                         validation: 'pattern',
                         message: 'Company name is invalid',
-                        control: createCompany.controls['legalName']
+                        control: createCompany.controls['commercialName']
                         }"
                     ></mat-error>
                 </div>

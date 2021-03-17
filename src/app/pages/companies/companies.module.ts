@@ -41,6 +41,10 @@ import { UploadDocumentsComponent } from './components/upload-documents/upload-d
                   path: 'add-company',
                   component: AddCompanyComponent,
                 },
+                {
+                  path: 'edit-company/:id',
+                  component: AddCompanyComponent,
+                },
             ]
         },
     ]),

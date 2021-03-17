@@ -5,13 +5,13 @@
     <ng-container *ngFor="let company of myCompanies">
         <div class="col-lg-3 col-md-4 col-sm-6 mb-3">
             <div class="company-card d-flex align-items-center">
-                <img class="company-logo" src="{{company.logoPath || '../../../../../assets/images/default-img.png'}}" alt="{{company.legalName}}">
+                <img class="company-logo" src="{{company.logoPath || '../../../../../assets/images/default-img.png'}}" alt="{{company.commercialName}}">
                 <div class="pl-2">
-                    <h2 class="company-name">{{company.legalName}}</h2>
+                    <h2 class="company-name">{{company.commercialName}}</h2>
                     <p class="company-data mb-2">{{company.country}}, {{company.city}}</p>
                     <div>
                         <a [href]="company.tenantReturnUrl" target="_blank" class="btn btn-success btn-sm">View</a>
-                        <button class="btn btn-success btn-sm ml-1">Edit</button>
+                        <a routerLink="edit-company/{{company.id}}" class="btn btn-success btn-sm ml-1">Edit</a>
                     </div>
                 </div>
             </div>

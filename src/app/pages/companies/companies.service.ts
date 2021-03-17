@@ -38,4 +38,8 @@ export class CompaniesService {
     getCompanyByCreatorEmail(): Observable<any> {
         return this.http.post<any>('Companies/GetCompanyByCreatorEmail', {});
     }
+    
+    getCompanyById(companyId): Observable<any> {
+        return this.http.post<any>('Companies/GetCompanyById', {companyId:companyId});
+    }
 }
