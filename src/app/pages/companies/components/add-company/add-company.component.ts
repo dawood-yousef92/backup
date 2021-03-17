@@ -35,6 +35,8 @@ export class AddCompanyComponent implements OnInit {
   documents:File[] = [];
   companyId:any;
 
+  companyByIdQueryItem:any;
+
   constructor( private router: Router,
     private fb: FormBuilder, 
     private loderService: LoaderService,
@@ -49,49 +51,49 @@ export class AddCompanyComponent implements OnInit {
         null
       ],
       commercialName: [
-        '',
+        this.companyByIdQueryItem?.commercialName || '',
         Validators.compose([
           Validators.required,
           Validators.pattern("[a-zA-Z0-9 ]+"),
         ]),
       ],
-      adminEmail: [
+      emailAddress: [
         ''
       ],
       businessType: [
         null
       ],
       description: [
-        ''
+        this.companyByIdQueryItem?.description || ''
       ],
       buildingNo: [
-        ''
+        this.companyByIdQueryItem?.buildingNo || ''
       ],
       street: [
-        ''
+        this.companyByIdQueryItem?.street || ''
       ],
       phone: [
-        '',
+        this.companyByIdQueryItem?.phone || '',
         Validators.compose([
           Validators.pattern("[0-9]+"),
           Validators.maxLength(11),
         ]),
       ],
       mobile: [
-        '',
+        this.companyByIdQueryItem?.mobile || '',
         Validators.compose([
           Validators.pattern("[0-9]+"),
           Validators.maxLength(11),
         ]),
       ],
       countryId: [
-        ''
+        this.companyByIdQueryItem?.countryId || ''
       ],
       cityId: [
-        ''
+        this.companyByIdQueryItem?.cityId || ''
       ],
       currencyId: [
-        ''
+        this.companyByIdQueryItem?.currencyId || ''
       ],
       companyCategoryIds: [
         []
@@ -181,6 +183,7 @@ export class AddCompanyComponent implements OnInit {
     this.companiesService.getCompanyBusinessTypes().subscribe((data) => {
       this.companyBusinessTypes = data.result.businessTypeItems;
     });
+    this.initForm();
   }
 
   getCategoriesByBusinessType() {
@@ -188,7 +191,7 @@ export class AddCompanyComponent implements OnInit {
     this.loderService.setIsLoading = true;
     this.companiesService.getCategoriesByBusinessType(this.createCompany.controls.businessType.value).subscribe((data) => {
       this.categories = data.result.productsCategoryItem.concat(data.result.servicesCategoryItem);
-      this.createCompany.get('companyCategoryIds').setValue(null);
+      this.createCompany.get('companyCategoryIds').setValue([]);
       this.subCategories = [];
       this.openModal(this.catModal);
       this.loderService.setIsLoading = false;
@@ -289,7 +292,13 @@ export class AddCompanyComponent implements OnInit {
 
   getCompanyById() {
     this.companiesService.getCompanyById(this.companyId).subscribe((data) => {
-      console.log(data);
+      this.companyByIdQueryItem = data.result.companyByIdQueryItem;
+      console.log(this.companyByIdQueryItem);
+      // this.selectedCat = [];
+      // this.companyByIdQueryItem.companyCategoryIds.map((item) => {
+      //   this.selectedCat.push(this.categories?.find(cat => cat.id === item));
+      // });
+      this.initForm();
     });
   }
 
@@ -310,10 +319,9 @@ export class AddCompanyComponent implements OnInit {
   submit() {
     this.loderService.setIsLoading = true;
     var formData: FormData = new FormData();
-    var formData2: FormData = new FormData();
     let cats = []
     for(let i = 0; i < this.selectedCat.length; i++) {
-      cats.push(this.selectedCat[i].id);
+      cats.push(this.selectedCat[i].id as string);
     }
     this.createCompany.get('companyCategoryIds').setValue(cats);
 
@@ -321,7 +329,7 @@ export class AddCompanyComponent implements OnInit {
       formData.append('image',this.changeProfileImage as any, this.changeProfileImage['name']);
     }
     formData.append('commercialName',this.createCompany.controls.commercialName.value);
-    formData.append('adminEmail',this.createCompany.controls.adminEmail.value);
+    formData.append('emailAddress',this.createCompany.controls.emailAddress.value);
     formData.append('businessType',this.createCompany.controls.businessType.value);
     formData.append('description',this.createCompany.controls.description.value);
     formData.append('buildingNo',this.createCompany.controls.buildingNo.value);
@@ -331,7 +339,10 @@ export class AddCompanyComponent implements OnInit {
     formData.append('countryId',this.createCompany.controls.countryId.value);
     formData.append('cityId',this.createCompany.controls.cityId.value);
     formData.append('currencyId',this.createCompany.controls.currencyId.value);
-    formData.append('companyCategoryIds',this.createCompany.controls.companyCategoryIds.value);
+    // formData.append('companyCategoryIds',JSON.stringify(this.createCompany.controls.companyCategoryIds.value));
+    for(let i = 0; i < cats.length; i++){
+      formData.append("companyCategoryIds", cats[i]);
+    }
     for(let i =0; i < this.documents.length; i++){
       formData.append("attachments", this.documents[i] as File, this.documents[i]['name']);
     }
