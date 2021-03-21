@@ -15,9 +15,9 @@ export class CompaniesListComponent implements OnInit {
     private companiesService:CompaniesService,
   ) { }
 
-  getCompanyByCreatorEmail() {
+  getCompaniesByTenantOwner() {
     this.loderService.setIsLoading = true;
-    this.companiesService.getCompanyByCreatorEmail().subscribe((data) => {
+    this.companiesService.getCompaniesByTenantOwner().subscribe((data) => {
       this.loderService.setIsLoading = false;
       this.myCompanies = data.result.companiesByCreatorItems.items;
     }, (error) => {
@@ -26,7 +26,7 @@ export class CompaniesListComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.getCompanyByCreatorEmail();
+    this.getCompaniesByTenantOwner();
   }
 
 }

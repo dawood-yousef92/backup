@@ -13,7 +13,7 @@
                             <button type="button" (click)="changePhoto()" class="btn btn-success mx-2 d-block mb-2">Change Logo</button>
                             <button *ngIf="selectedImageUrl" type="button" (click)="removePhoto()" class="btn btn-light mx-2">Remove Logo</button>
                         </div>
-                        <input formControlName="image" id="photoInput" type="file" accept=".PNG,.JPEG,.jpg" (change)="readURL($event)" class="d-none" placeholder="Enter photo">
+                        <input formControlName="logo" id="photoInput" type="file" accept=".PNG,.JPEG,.jpg" (change)="readURL($event)" class="d-none" placeholder="Enter photo">
                         <p *ngIf="errorImageSize" class="c-red mb-0">Please select photo whith size less than 2M</p>
                     </div>
                 </div>
@@ -56,43 +56,9 @@
                         </mat-select>
                     </mat-form-field>
                 </div>
-                <div class="col-md-12">
-                    <!-- <mat-form-field class="w-100">
-                        <mat-select placeholder="Sub Major Type" (selectionChange)="getSubCategories($event)" multiple>
-                            <div class="p-2 filter">
-                                <mat-form-field appearance="outline" class="w-100">
-                                    <input matInput (keyup)="search($event.target.value,'categories')" (keydown)="$event.stopPropagation()" class="w-100">
-                                    <mat-icon matSuffix>search</mat-icon>
-                                </mat-form-field>
-                            </div>
-                            <mat-option *ngFor="let cat of categories" [value]="cat.id" [ngClass]="{'d-none': !cat.name?.toLowerCase().includes(categoriesFilter.toLowerCase())}">{{cat.name}}</mat-option>
-                        </mat-select>
-                    </mat-form-field> -->
-                </div>
-                <!-- <div class="col-md-6 mb-3">
-                    <mat-form-field class="w-100">
-                        <mat-select formControlName="companyCategoryIds" placeholder="Categories" multiple>
-                            <div class="p-2 filter">
-                                <mat-form-field appearance="outline" class="w-100">
-                                    <input matInput (keyup)="search($event.target.value,'subCategories')" (keydown)="$event.stopPropagation()" class="w-100">
-                                    <mat-icon matSuffix>search</mat-icon>
-                                </mat-form-field>
-                            </div>
-                            <mat-optgroup *ngFor="let group of subCategories" [label]="group.name">
-                                <mat-option *ngFor="let cat of group.categories" [value]="cat?.id" [ngClass]="{'d-none': !cat.name?.toLowerCase().includes(subCategoriesFilter.toLowerCase())}">{{cat?.name}}</mat-option>
-                            </mat-optgroup>
-                        </mat-select>
-                    </mat-form-field>
-                </div> -->
                 <div class="col-md-3 mb-3">
                     <mat-form-field class="w-100">
                         <mat-select formControlName="countryId" placeholder="Country" (selectionChange)="getCities($event)" required>
-                            <!-- <div class="p-2 filter">
-                                <mat-form-field appearance="outline" class="w-100">
-                                    <input matInput (keyup)="search($event.target.value,'countries')" (keydown)="$event.stopPropagation()" class="w-100">
-                                    <mat-icon matSuffix>search</mat-icon>
-                                </mat-form-field>
-                            </div> -->
                             <mat-option *ngFor="let country of countries" [value]="country.id" [ngClass]="{'d-none': !country?.name?.toLowerCase()?.includes(countriesFilter?.toLowerCase())}">
                                 <div class="d-flex align-items-center">
                                     <span class="symbol symbol-20 mr-3"><img [src]="country.flag"></span>{{country.name}}
@@ -146,12 +112,13 @@
                         ></mat-error>
                     </mat-form-field>
                 </div>
-                <div class="col-md-6 mb-3">
+                <div class="col-md-6 mb-3" *ngIf="!companyId || (companyId && !this.companyItem?.verified)">
                     <app-upload-documents [selectedFiles]="documents" (selectFiles)="selectFiles($event)" class="row"></app-upload-documents>
-                    <div class="row" *ngIf="companyId && companyByIdQueryItem?.companyDocuments">
-                        <div *ngFor="let file of companyByIdQueryItem?.companyDocuments; let i = index" class="col-sm-3 col-4 mb-4">
+                    <h3 *ngIf="companyId && companyItem?.companyDocuments.length > 0">Previous Documents</h3>
+                    <div class="row" *ngIf="companyId && companyItem?.companyDocuments">
+                        <div *ngFor="let file of companyItem?.companyDocuments; let i = index" class="col-sm-3 col-4 mb-4">
                             <div id="uploaded-image-holder" class="uploaded-file-holder">
-                                <button type="button" (click)="deleteFile(i)" class="btn delete-file sub">
+                                <button type="button" (click)="deleteDocument(i)" class="btn delete-file sub">
                                     <svg aria-hidden="true" focusable="false" data-prefix="fal" data-icon="times" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512" class="svg-inline--fa fa-times fa-w-10 fa-3x"><path fill="#fff" d="M193.94 256L296.5 153.44l21.15-21.15c3.12-3.12 3.12-8.19 0-11.31l-22.63-22.63c-3.12-3.12-8.19-3.12-11.31 0L160 222.06 36.29 98.34c-3.12-3.12-8.19-3.12-11.31 0L2.34 120.97c-3.12 3.12-3.12 8.19 0 11.31L126.06 256 2.34 379.71c-3.12 3.12-3.12 8.19 0 11.31l22.63 22.63c3.12 3.12 8.19 3.12 11.31 0L160 289.94 262.56 392.5l21.15 21.15c3.12 3.12 8.19 3.12 11.31 0l22.63-22.63c3.12-3.12 3.12-8.19 0-11.31L193.94 256z" class=""></path></svg>
                                 </button>
                                 <div class="w-100 text-center">
@@ -172,13 +139,12 @@
                     <div class="chips-list" *ngIf="selectedCat.length > 0">
                         <span class="chip" *ngFor="let cat of selectedCat">
                             {{cat.name}} 
-                            <!-- <mat-icon role="img" (click)="removeCat(cat)" class="cursor-pointer ml-2 mat-icon notranslate mat-chip-remove mat-chip-trailing-icon material-icons">cancel</mat-icon> -->
                         </span>
                     </div>
                 </div>
             </div>
             <div>
-                <button type="submit" class="btn btn-success btn-lg px-5">
+                <button type="submit" class="btn btn-success btn-lg px-5" [disabled]="createCompany.invalid">
                     Save
                 </button>
             </div>
@@ -198,16 +164,6 @@
 <ng-template #subCat let-categories="categories">
     <ng-container *ngIf="categories?.length > 0">
         <ng-container *ngFor="let cat of categories">
-            <!-- <mat-expansion-panel *ngIf="cat.categories?.length > 0">
-                <mat-expansion-panel-header>
-                    <mat-panel-title>
-                        <mat-checkbox [checked]="isChecked(cat)" (click)="clickCat($event)" (change)="selectCat($event,cat)" class="mx-2"></mat-checkbox> 
-                        {{cat?.name}}
-                    </mat-panel-title>
-                </mat-expansion-panel-header>
-                <div [ngTemplateOutlet]="subCat" [ngTemplateOutletContext]="{categories:cat.categories}">
-                </div>
-            </mat-expansion-panel> -->
             <mat-panel-title class="mat-expansion-panel-header-title noSub">
                 <mat-checkbox [checked]="isChecked(cat)" (click)="clickCat($event)" (change)="selectCat($event,cat,'sub')" class="mx-2"></mat-checkbox> 
                 {{cat?.name}}

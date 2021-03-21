@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { CompaniesService } from 'src/app/pages/companies/companies.service';
+import { LookupsService } from 'src/app/pages/lookups.service';
 
 @Component({
   selector: 'app-header',
@@ -16,11 +16,11 @@ export class HeaderComponent implements OnInit {
 
 
   constructor(private router: Router,
-    private companiesService:CompaniesService,) { }
+    private lookupsService:LookupsService,) { }
 
   
   getCurrencies() {
-    this.companiesService.getCurrencies().subscribe((data) => {
+    this.lookupsService.getCurrencies().subscribe((data) => {
       this.currencies = data.result.currencies;
     });
   }

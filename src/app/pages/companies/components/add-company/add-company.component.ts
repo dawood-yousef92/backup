@@ -5,6 +5,7 @@ import { ModalDismissReasons, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ToastrService } from 'ngx-toastr';
 import { AuthService } from 'src/app/modules/auth';
 import { LoaderService } from 'src/app/modules/auth/_services/loader.service';
+import { LookupsService } from 'src/app/pages/lookups.service';
 import { CompaniesService } from '../../companies.service';
 
 @Component({
@@ -35,65 +36,66 @@ export class AddCompanyComponent implements OnInit {
   documents:File[] = [];
   companyId:any;
 
-  companyByIdQueryItem:any;
+  companyItem:any;
 
   constructor( private router: Router,
     private fb: FormBuilder, 
     private loderService: LoaderService,
     private toaster: ToastrService,
     private companiesService:CompaniesService,
+    private lookupsService:LookupsService,
     private modalService: NgbModal,
     private route: ActivatedRoute,) { }
 
   initForm() {
     this.createCompany = this.fb.group({
-      image: [
+      logo: [
         null
       ],
       commercialName: [
-        this.companyByIdQueryItem?.commercialName || '',
+        this.companyItem?.commercialName || '',
         Validators.compose([
           Validators.required,
           Validators.pattern("[a-zA-Z0-9 ]+"),
         ]),
       ],
       emailAddress: [
-        ''
+        this.companyItem?.emailAddress || '',
       ],
       businessType: [
-        null
+        this.companyItem?.businessType || null
       ],
       description: [
-        this.companyByIdQueryItem?.description || ''
+        this.companyItem?.description || ''
       ],
       buildingNo: [
-        this.companyByIdQueryItem?.buildingNo || ''
+        this.companyItem?.buildingNo || ''
       ],
       street: [
-        this.companyByIdQueryItem?.street || ''
+        this.companyItem?.street || ''
       ],
       phone: [
-        this.companyByIdQueryItem?.phone || '',
+        this.companyItem?.phone || '',
         Validators.compose([
           Validators.pattern("[0-9]+"),
           Validators.maxLength(11),
         ]),
       ],
       mobile: [
-        this.companyByIdQueryItem?.mobile || '',
+        this.companyItem?.mobile || '',
         Validators.compose([
           Validators.pattern("[0-9]+"),
           Validators.maxLength(11),
         ]),
       ],
       countryId: [
-        this.companyByIdQueryItem?.countryId || ''
+        this.companyItem?.countryId || ''
       ],
       cityId: [
-        this.companyByIdQueryItem?.cityId || ''
+        this.companyItem?.cityId || ''
       ],
       currencyId: [
-        this.companyByIdQueryItem?.currencyId || ''
+        this.companyItem?.currencyId || ''
       ],
       companyCategoryIds: [
         []
@@ -180,7 +182,7 @@ export class AddCompanyComponent implements OnInit {
   }
 
   getCompanyBusinessTypes() {
-    this.companiesService.getCompanyBusinessTypes().subscribe((data) => {
+    this.lookupsService.getBusinessTypes().subscribe((data) => {
       this.companyBusinessTypes = data.result.businessTypeItems;
     });
     this.initForm();
@@ -192,7 +194,6 @@ export class AddCompanyComponent implements OnInit {
     this.companiesService.getCategoriesByBusinessType(this.createCompany.controls.businessType.value).subscribe((data) => {
       this.categories = data.result.productsCategoryItem.concat(data.result.servicesCategoryItem);
       this.createCompany.get('companyCategoryIds').setValue([]);
-      this.subCategories = [];
       this.openModal(this.catModal);
       this.loderService.setIsLoading = false;
     },(error) => {
@@ -200,8 +201,35 @@ export class AddCompanyComponent implements OnInit {
     });
   }
 
+  getCategoriesByBusinessTypeForEdit() {
+    this.selectedCat = [];
+    this.loderService.setIsLoading = true;
+    this.companiesService.getCategoriesByBusinessType(this.companyItem.businessType).subscribe((data) => {
+      this.categories = data.result.productsCategoryItem.concat(data.result.servicesCategoryItem);
+      this.categories.map((item) => {
+        if(this.companyItem.companyCategoryIds.includes(item.id)) {
+          this.selectedCat.push(item);
+        }
+      });
+      this.selectedCat.map((item) => {
+        item.categories.map((cc) => {
+          if(this.companyItem.companyCategoryIds.includes(cc.id)) {
+            this.selectedCat.push(cc);
+          }
+        });
+      });
+      // this.companyItem.companyCategoryIds.map((item) => {
+      //   this.selectedCat.push(this.categories?.find(c => c.id === item));
+      // });
+      this.createCompany.get('companyCategoryIds').setValue([]);
+      this.loderService.setIsLoading = false;
+    },(error) => {
+      this.loderService.setIsLoading = false;
+    });
+  }
+
   getCountries() {
-    this.companiesService.getCountries().subscribe((data) => {
+    this.lookupsService.getCountries().subscribe((data) => {
       // this.countries = data.result.countries;
       this.countries.push(data.result.countries.find(item => item.id === '7f4c2c35-feb9-4f6c-9159-9d9280bd047c'));
     });
@@ -210,7 +238,7 @@ export class AddCompanyComponent implements OnInit {
   getCities(e) {
     this.loderService.setIsLoading = true;
     this.createCompany.get('cityId').setValue('');
-    this.companiesService.getCitiesByCountyId(e.value).subscribe((data) => {
+    this.lookupsService.getCitiesByCountryId(e.value).subscribe((data) => {
       this.cities = data.result.cities;
       this.loderService.setIsLoading = false;
     }, (error) => {
@@ -219,7 +247,7 @@ export class AddCompanyComponent implements OnInit {
   }
 
   getCurrencies() {
-    this.companiesService.getCurrencies().subscribe((data) => {
+    this.lookupsService.getCurrencies().subscribe((data) => {
       this.currencies = data.result.currencies;
     });
   }
@@ -237,7 +265,10 @@ export class AddCompanyComponent implements OnInit {
     this.selectedImageUrl = null;
     (document.getElementById('photoInput') as HTMLInputElement).value = null;
     this.changeProfileImage = null;
-    this.createCompany.get('image').setValue(null);
+    this.createCompany.get('logo').setValue(null);
+    if(this.companyId) {
+      this.companyItem.logoPath = '';
+    }
   }
 
   readURL(e) {
@@ -292,20 +323,23 @@ export class AddCompanyComponent implements OnInit {
 
   getCompanyById() {
     this.companiesService.getCompanyById(this.companyId).subscribe((data) => {
-      this.companyByIdQueryItem = data.result.companyByIdQueryItem;
-      console.log(this.companyByIdQueryItem);
-      // this.selectedCat = [];
-      // this.companyByIdQueryItem.companyCategoryIds.map((item) => {
-      //   this.selectedCat.push(this.categories?.find(cat => cat.id === item));
-      // });
+      this.companyItem = data.result.companyItem;
+      console.log(this.companyItem);
+      this.createCompany.controls['commercialName'].disable();
+      this.selectedImageUrl = this.companyItem.logoPath;
+      this.getCategoriesByBusinessTypeForEdit();
+      this.getCities({value: this.companyItem.countryId});
       this.initForm();
     });
+  }
+
+  deleteDocument(index) {
+    this.companyItem?.companyDocuments.splice(index,1);
   }
 
   ngOnInit(): void {
     this.initForm();
     this.getCompanyBusinessTypes();
-    // this.getCategoriesByBusinessType();
     this.getCountries();
     this.getCurrencies();
     this.route.params.subscribe((data) => {
@@ -326,7 +360,7 @@ export class AddCompanyComponent implements OnInit {
     this.createCompany.get('companyCategoryIds').setValue(cats);
 
     if(this.changeProfileImage) {
-      formData.append('image',this.changeProfileImage as any, this.changeProfileImage['name']);
+      formData.append('logo',this.changeProfileImage as any, this.changeProfileImage['name']);
     }
     formData.append('commercialName',this.createCompany.controls.commercialName.value);
     formData.append('emailAddress',this.createCompany.controls.emailAddress.value);
@@ -339,20 +373,40 @@ export class AddCompanyComponent implements OnInit {
     formData.append('countryId',this.createCompany.controls.countryId.value);
     formData.append('cityId',this.createCompany.controls.cityId.value);
     formData.append('currencyId',this.createCompany.controls.currencyId.value);
-    // formData.append('companyCategoryIds',JSON.stringify(this.createCompany.controls.companyCategoryIds.value));
     for(let i = 0; i < cats.length; i++){
       formData.append("companyCategoryIds", cats[i]);
     }
     for(let i =0; i < this.documents.length; i++){
       formData.append("attachments", this.documents[i] as File, this.documents[i]['name']);
     }
-    this.companiesService.createCompany(formData).subscribe((data) => {
-      this.loderService.setIsLoading = false;
-      this.toaster.success(data.result);
-      this.router.navigate(['/companies']);
-    },(error) => {
-      this.loderService.setIsLoading = false;
-    });
+
+    if(this.companyId) {
+      formData.append('id',this.companyId);
+      formData.append('verified',this.companyItem?.verified);
+      for(let i =0; i < this.companyItem?.companyDocuments.length; i++){
+        formData.append("attachmentIds", this.companyItem?.companyDocuments[i].id);
+      }
+      formData.append('attachmentIds','');
+      if(this.companyItem?.logoPath) {
+        formData.append('LogoPath',this.companyItem?.logoPath);
+      }
+      this.companiesService.editCompany(formData).subscribe((data) => {
+        this.loderService.setIsLoading = false;
+        this.toaster.success(data.message);
+        this.router.navigate(['/companies']);
+      },(error) => {
+        this.loderService.setIsLoading = false;
+      });
+    }
+    else {
+      this.companiesService.createCompany(formData).subscribe((data) => {
+        this.loderService.setIsLoading = false;
+        this.toaster.success(data.result);
+        this.router.navigate(['/companies']);
+      },(error) => {
+        this.loderService.setIsLoading = false;
+      });
+    }
   }
 
 }

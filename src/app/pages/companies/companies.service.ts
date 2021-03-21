@@ -7,39 +7,25 @@ import { Observable } from 'rxjs';
     providedIn: 'root',
 })
 export class CompaniesService {
-
-    baseUrl = environment.apiUrl;
     constructor(private http: HttpClient){}
 
-    getCompanyBusinessTypes(): Observable<any> {
-        return this.http.get<any>('Companies/GetCompanyBusinessTypes');
-    }
-    
     getCategoriesByBusinessType(businessType): Observable<any> {
         return this.http.post<any>('Companies/GetCategoriesByBusinessType', {businessType:businessType});
-    }
-
-    getCountries(): Observable<any> {
-        return this.http.post<any>('Countries/GetCountries', {});
-    }
-
-    getCitiesByCountyId(id): Observable<any> {
-        return this.http.post<any>('Cities/GetCitiesByCountyId', {countryId: id});
-    }
-
-    getCurrencies(): Observable<any> {
-        return this.http.post<any>('Currencies/GetCurrencies', {});
     }
 
     createCompany(formData): Observable<any> {
         return this.http.post<any>('Companies/CreateCompany', formData);
     }
 
-    getCompanyByCreatorEmail(): Observable<any> {
-        return this.http.post<any>('Companies/GetCompanyByCreatorEmail', {});
+    getCompaniesByTenantOwner(): Observable<any> {
+        return this.http.post<any>('Companies/GetCompaniesByTenantOwner', {rowsPerPage: 2000000});
     }
     
     getCompanyById(companyId): Observable<any> {
-        return this.http.post<any>('Companies/GetCompanyById', {companyId:companyId});
+        return this.http.post<any>('Companies/GetCompanyById', {id:companyId});
+    }
+
+    editCompany(formData): Observable<any> {
+        return this.http.put<any>('Companies/EditCompany', formData);
     }
 }
