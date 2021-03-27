@@ -323,7 +323,8 @@ export class AddCompanyComponent implements OnInit {
 
   getCompanyById() {
     this.companiesService.getCompanyById(this.companyId).subscribe((data) => {
-      this.companyItem = data.result.companyItem;
+      this.companyItem = data.result;
+      // this.companyItem = data.result.companyItem;
       console.log(this.companyItem);
       this.createCompany.controls['commercialName'].disable();
       this.selectedImageUrl = this.companyItem.logoPath;
