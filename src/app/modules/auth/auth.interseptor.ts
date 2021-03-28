@@ -33,6 +33,23 @@ export class AuthInterceptor implements HttpInterceptor {
         },
       });
     }
+
+    if (token != null) {
+      request = request.clone({
+        setHeaders: {
+          Authorization: 'Bearer ' + token.replace(/\"/g, ""),
+          "X-Tenant": 'www',
+        },
+      });
+    }
+    else {
+      request = request.clone({
+        setHeaders: {
+          "X-Tenant": 'www',
+        },
+      });
+    }
+
     return next.handle(request)
     .pipe(catchError(err => {
         if ([401, 403].includes(err.status)) {
@@ -42,8 +59,8 @@ export class AuthInterceptor implements HttpInterceptor {
             window.location.href = ('auth/login');
         }
 
-        if(err.error.validationErrors) {
-          const error = err.error.validationErrors;
+        if(err.error.responseException.validationErrors) {
+          const error = err.error.responseException.validationErrors;
           error.map((item) => {
               this.toaster.error(item.reason);
           })
