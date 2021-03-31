@@ -30,14 +30,6 @@ export class AuthInterceptor implements HttpInterceptor {
       request = request.clone({
         setHeaders: {
           Authorization: 'Bearer ' + token.replace(/\"/g, ""),
-          "X-Tenant": 'www',
-        },
-      });
-    }
-    else {
-      request = request.clone({
-        setHeaders: {
-          "X-Tenant": 'www',
         },
       });
     }

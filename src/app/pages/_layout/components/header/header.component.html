@@ -1,21 +1,24 @@
 <div class="main-header" [ngClass]="{'sticky' : isSticky}">
-    <div class="container-fluid custom-container top-small-header justify-content-end">
-        <button [matMenuTriggerFor]="selectCurrency" class="mx-2 btn c-white btn-sm align-items-center d-flex">
-            <img class="flag" src="../../../../../assets/images/077-jordan.svg"/>
-            <span class="mx-2 c-white">{{activeCurrency?.name || 'Currency'}}</span> 
-            <img class="flag" src="../../../../../assets/images/iconly_light-outline_arrow_-_left_circle-13.svg"/>
-        </button>
-        <mat-menu class="custom-menu" #selectCurrency="matMenu">
-            <ng-container *ngFor="let currency of currencies">
-                <button (click)="setActiveCurrency(currency)" [ngClass]="{ active: currency === activeCurrency }" mat-menu-item>
-                    <span class="symbol symbol-20 mx-3">
-                        <img class="flag" src="../../../../../assets/images/077-jordan.svg" />
-                    </span>
-                    <span class="navi-text">{{ currency.name }}</span>
-                </button>
-            </ng-container>
-        </mat-menu>
-        <app-language-selector></app-language-selector>
+    <div class="container-fluid custom-container top-small-header d-flex w-100 align-items-center">
+        <span class="flex-fill mx-2 user-name c-white d-none d-sm-block">Welcome {{username || 'to growthway'}}</span>
+        <div class="d-flex">
+            <button [matMenuTriggerFor]="selectCurrency" class="mx-2 btn c-white btn-sm align-items-center d-flex">
+                <img class="flag" src="../../../../../assets/images/077-jordan.svg"/>
+                <span class="mx-2 c-white">{{activeCurrency?.name || 'Currency'}}</span> 
+                <img class="flag" src="../../../../../assets/images/iconly_light-outline_arrow_-_left_circle-13.svg"/>
+            </button>
+            <mat-menu class="custom-menu" #selectCurrency="matMenu">
+                <ng-container *ngFor="let currency of currencies">
+                    <button (click)="setActiveCurrency(currency)" [ngClass]="{ active: currency === activeCurrency }" mat-menu-item>
+                        <span class="symbol symbol-20 mx-3">
+                            <img class="flag" src="../../../../../assets/images/077-jordan.svg" />
+                        </span>
+                        <span class="navi-text">{{ currency.name }}</span>
+                    </button>
+                </ng-container>
+            </mat-menu>
+            <app-language-selector></app-language-selector>
+        </div>
     </div>
     <div class="container-fluid custom-container header-section">
         <div class="logo">
@@ -45,7 +48,7 @@
                             </a>
                         </div>
                         <div class="flex-fill" *ngIf="checkIfLogin()">
-                            <span class="c-white user-name">Dawood Yousef</span>
+                            <span class="c-white user-name">{{username}}</span>
                         </div>
                         <a (click)="showMobileMenu()">
                             <img class="mx-1" src="./assets/images/back.svg" alt="bell"/>

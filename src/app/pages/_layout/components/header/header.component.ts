@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { HomeService } from 'src/app/pages/home/home.service';
 import { LookupsService } from 'src/app/pages/lookups.service';
 
 @Component({
@@ -13,9 +14,11 @@ export class HeaderComponent implements OnInit {
   isSticky:boolean;
   currencies:any[] = [];
   activeCurrency:any = null;
+  username:string;
 
 
-  constructor(private router: Router,
+  constructor(private homeService:HomeService,
+    private router: Router,
     private lookupsService:LookupsService,) { }
 
   
@@ -30,6 +33,9 @@ export class HeaderComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    if(localStorage.getItem('token')) {
+      this.getUser();
+    }
     this.getCurrencies();
     window.addEventListener('scroll', this.scroll, true);
     this.scroll;
@@ -77,4 +83,9 @@ export class HeaderComponent implements OnInit {
     return './assets/images/defaultuser.png';
   }
 
+  getUser() {
+    this.homeService.getUser().subscribe((data) => {
+      this.username = data.result.username;
+    });
+  }
 }
