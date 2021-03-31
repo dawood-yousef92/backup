@@ -43,22 +43,22 @@ export class AuthInterceptor implements HttpInterceptor {
             window.location.href = ('auth/login');
         }
 
-        if(err.error.responseException.validationErrors) {
-          const error = err.error.responseException.validationErrors;
+        if(err.error.validationErrors) {
+          const error = err.error.validationErrors;
           error.map((item) => {
               this.toaster.error(item.reason);
           })
+          return throwError(error);
+        }
+        else if(err.error.title) {
+          const error = err.error;
+          this.toaster.error(err.error.title)
           return throwError(error);
         }
         else if(err.error.detail) {
             const error = err.error;
             this.toaster.error(err.error.detail)
             return throwError(error);
-        }
-        else if(err.error.title) {
-          const error = err.error;
-          this.toaster.error(err.error.title)
-          return throwError(error);
         }
         else {
           const error = err.error;

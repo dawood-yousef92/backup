@@ -19,7 +19,7 @@ export class CompaniesListComponent implements OnInit {
     this.loderService.setIsLoading = true;
     this.companiesService.getCompaniesByTenantOwner().subscribe((data) => {
       this.loderService.setIsLoading = false;
-      this.myCompanies = data.result.companiesByCreatorItems.items;
+      this.myCompanies = data.result.companyItems.items;
     }, (error) => {
       this.loderService.setIsLoading = false;
     });
