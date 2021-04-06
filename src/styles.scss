@@ -122,17 +122,18 @@ a {
   .mat-expansion-panel-header:not([aria-disabled=true]) {
     cursor: pointer;
     margin-bottom: 0;
-    padding-bottom: 6px;
+    padding-bottom: 10px;
     padding-top: 6px;
     border-radius: 0;
-    padding-left: 10px;
+    padding-left: 25px;
+    padding-right: 5px;
     border-bottom: 1px solid #ccc;
   }
   .mat-expansion-panel-body {
-    padding: 0 5px 5px;
+    padding: 0 5px 5px 15px;
   }
   span.mat-expansion-indicator {
-      right: 0px;
+      left: 0px;
       top: 6px;
       position: absolute;
       transform: rotate(0deg)!important;
@@ -162,13 +163,18 @@ a {
   }
   .mat-expansion-panel-spacing {
     margin: 0;
+    margin-bottom: 10px;
   }
   mat-expansion-panel-header.mat-expanded mat-panel-title {
     color: $primaryColor;
     font-family: $boldFont;
   }
+  .mat-checkbox-layout {
+    margin-bottom: 0;
+  }
   .noSub {
     padding: 5px 10px;
+    padding-left: 25px;
     border-bottom: 1px solid #ccc;
   }
   .mat-expansion-indicator::after {
@@ -604,7 +610,7 @@ a {
       font-size: 14px;
     }
     .mat-expansion-panel-header:not([aria-disabled=true]) {
-      padding-left: 5px;
+      padding-left: 25px;
     }
   }
 }

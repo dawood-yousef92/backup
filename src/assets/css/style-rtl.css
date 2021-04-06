@@ -3,15 +3,19 @@
 }
 .custom-tree .mat-expansion-panel-header:not([aria-disabled=true]) {
     padding-left: 0;
-    padding-right: 10px;
+    padding-right: 25px;
 }
 .custom-tree .mat-expansion-panel-body {
-    padding-left: 24px;
+    padding-left: 5px;
     padding-right: 15px;
 }
 .custom-tree span.mat-expansion-indicator {
-    right: auto;
-    left: 0px;
+    left: auto;
+    right: 0px;
+}
+.custom-tree .noSub {
+    padding-left: 5px;
+    padding-right: 25px;
 }
 .mat-expanded > span.mat-expansion-indicator::after {
     transform: rotate(-90deg)!important;

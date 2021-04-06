@@ -12,6 +12,7 @@ import {TranslationModule} from '../i18n/translation.module';
 import { ChangeLanguageComponent } from './change-language/change-language.component';
 import { AuthService } from './_services/auth.service';
 import { AuthInterceptor } from './auth.interseptor';
+import { EmailConfigComponent } from './email-config/email-config.component';
 
 @NgModule({
   declarations: [
@@ -21,6 +22,7 @@ import { AuthInterceptor } from './auth.interseptor';
     LogoutComponent,
     AuthComponent,
     ChangeLanguageComponent,
+    EmailConfigComponent,
   ],
   imports: [
     CommonModule,

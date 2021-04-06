@@ -128,8 +128,8 @@ export class HomeComponent implements OnInit {
 
   getCategoriesByBusinessType() {
     this.loderService.setIsLoading = true;
-    this.companiesService.getCategoriesByBusinessType(3).subscribe((data) => {
-      this.categories = data.result.productsCategoryItem;
+    this.companiesService.getCategoriesByBusinessType(3,3).subscribe((data) => {
+      this.categories = data.result.productsCategoryItem.concat(data.result.servicesCategoryItem);
       this.loderService.setIsLoading = false;
     },(error) => {
       this.loderService.setIsLoading = false;

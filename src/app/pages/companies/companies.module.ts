@@ -13,6 +13,8 @@ import { MatSelectModule } from '@angular/material/select';
 import {MatExpansionModule} from '@angular/material/expansion';
 import {MatIconModule} from '@angular/material/icon';
 import { UploadDocumentsComponent } from './components/upload-documents/upload-documents.component';
+import { MatTreeModule } from '@angular/material/tree';
+import {MatButtonModule} from '@angular/material/button';
 
 
 @NgModule({
@@ -27,7 +29,6 @@ import { UploadDocumentsComponent } from './components/upload-documents/upload-d
     MatCheckboxModule,
     MatSelectModule,
     MatExpansionModule,
-    MatIconModule,
     RouterModule.forChild([
         {
             path: '',
@@ -48,6 +49,10 @@ import { UploadDocumentsComponent } from './components/upload-documents/upload-d
             ]
         },
     ]),
+
+    MatIconModule,
+    MatButtonModule,
+    MatTreeModule,
   ],
 })
 export class CompaniesModule {}

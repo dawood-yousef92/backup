@@ -95,7 +95,7 @@ export class AddCompanyComponent implements OnInit {
         this.companyItem?.cityId || ''
       ],
       currencyId: [
-        this.companyItem?.currencyId || ''
+        this.companyItem?.currencyId || 'd755b09c-0ce3-4bc7-353f-08d8f772fcd0'
       ],
       companyCategoryIds: [
         []
@@ -132,37 +132,120 @@ export class AddCompanyComponent implements OnInit {
   }
 
   selectCat(e,cat,type) {
-    if(type === 'main') {
-      if(this.selectedCat.includes(cat)) {
-        cat.categories.map((item) => {
-          if(this.selectedCat.includes(item)) {
-            this.selectedCat.splice(this.selectedCat.indexOf(item),1);
-          }
-        })
-        this.selectedCat.splice(this.selectedCat.indexOf(cat),1);
-      }
-      else {
-        cat.categories.map((item) => {
-          if(!this.selectedCat.includes(item)) {
-            this.selectedCat.push(item);
-          }
-        })
-        this.selectedCat.push(cat);
+    if(this.selectedCat.includes(cat)) {
+      this.selectedCat.splice(this.selectedCat.indexOf(cat),1);
+    }
+    else {
+      this.selectedCat.push(cat);
+      // this.addParents(cat.parentId);
+      // let parent = this.categories.find(item => item.id === cat.parentId);
         let parent = e.source._elementRef.nativeElement.offsetParent;
         if(!(parent as HTMLElement).classList.contains('mat-expanded')) {
           e.source._elementRef.nativeElement.offsetParent.click();
         }
+      if(!this.selectedCat.includes(cat)) {
+        this.selectedCat.push(cat);
       }
     }
-    else if(type === 'sub') {
-      if(this.selectedCat.includes(cat)) {
-        this.selectedCat.splice(this.selectedCat.indexOf(cat),1);
+    // if(type === 'main') {
+    //   if(this.selectedCat.includes(cat)) {
+    //     cat.categories.map((item) => {
+    //       if(this.selectedCat.includes(item)) {
+    //         this.selectedCat.splice(this.selectedCat.indexOf(item),1);
+    //       }
+    //     })
+    //     this.selectedCat.splice(this.selectedCat.indexOf(cat),1);
+    //   }
+    //   else {
+    //     cat.categories.map((item) => {
+    //       if(!this.selectedCat.includes(item)) {
+    //         this.selectedCat.push(item);
+    //       }
+    //     })
+    //     this.selectedCat.push(cat);
+    //     let parent = e.source._elementRef.nativeElement.offsetParent;
+    //     if(!(parent as HTMLElement).classList.contains('mat-expanded')) {
+    //       e.source._elementRef.nativeElement.offsetParent.click();
+    //     }
+    //   }
+    // }
+    // else if(type === 'sub') {
+    //   if(this.selectedCat.includes(cat)) {
+    //     this.selectedCat.splice(this.selectedCat.indexOf(cat),1);
+    //   }
+    //   else {
+    //     this.selectedCat.push(cat);
+    //     let parent = this.categories.find(item => item.id === cat.parentId);
+    //     if(!this.selectedCat.includes(cat)) {
+    //       this.selectedCat.push(cat);
+    //     }
+    //   }
+    // }
+  }
+
+  addParents(parentId) {
+    for(let i = 0; this.categories.length > i; i++){
+      if(this.categories[i]?.id === parentId) {
+        if(!this.selectedCat.includes(this.categories[i])) {
+          this.selectedCat.push(this.categories[i]);
+        }
       }
-      else {
-        this.selectedCat.push(cat);
-        let parent = this.categories.find(item => item.id === cat.parentId);
-        if(!this.selectedCat.includes(parent)) {
-          this.selectedCat.push(parent);
+      for(let ii = 0; this.categories[i]?.categories?.length > ii; ii++) {
+        if(this.categories[i]?.categories[ii]?.id === parentId) {
+          if(!this.selectedCat.includes(this.categories[i])) {
+            this.selectedCat.push(this.categories[i]);
+          }
+          if(!this.selectedCat.includes(this.categories[i]?.categories[ii])) {
+            this.selectedCat.push(this.categories[i]?.categories[ii]);
+          }
+        }
+        for(let iii = 0; this.categories[i]?.categories.length > iii; iii++) {
+          if(this.categories[i]?.categories[ii]?.categories[iii]?.id === parentId) {
+            if(!this.selectedCat.includes(this.categories[i])) {
+              this.selectedCat.push(this.categories[i]);
+            }
+            if(!this.selectedCat.includes(this.categories[i]?.categories[ii])) {
+              this.selectedCat.push(this.categories[i]?.categories[ii]);
+            }
+            if(!this.selectedCat.includes(this.categories[i]?.categories[ii]?.categories[iii])) {
+              this.selectedCat.push(this.categories[i]?.categories[ii]?.categories[iii]);
+            }
+          }
+          for(let iiii = 0; this.categories[i]?.categories[ii]?.categories?.length > iiii; iiii++) {
+            if(this.categories[i]?.categories[ii]?.categories[iii]?.categories[iiii]?.id === parentId) {
+              if(!this.selectedCat.includes(this.categories[i])) {
+                this.selectedCat.push(this.categories[i]);
+              }
+              if(!this.selectedCat.includes(this.categories[i]?.categories[ii])) {
+                this.selectedCat.push(this.categories[i]?.categories[ii]);
+              }
+              if(!this.selectedCat.includes(this.categories[i]?.categories[ii]?.categories[iii])) {
+                this.selectedCat.push(this.categories[i]?.categories[ii]?.categories[iii]);
+              }
+              if(!this.selectedCat.includes(this.categories[i]?.categories[ii]?.categories[iii]?.categories[iiii])) {
+                this.selectedCat.push(this.categories[i]?.categories[ii]?.categories[iii]?.categories[iiii]);
+              }
+            }
+            for(let iiiii = 0; this.categories[i]?.categories[ii]?.categories[iii]?.length > iiiii; iiiii++) {
+              if(this.categories[i]?.categories[ii]?.categories[iii]?.categories[iiii]?.id === parentId) {
+                if(!this.selectedCat.includes(this.categories[i])) {
+                  this.selectedCat.push(this.categories[i]);
+                }
+                if(!this.selectedCat.includes(this.categories[i]?.categories[ii])) {
+                  this.selectedCat.push(this.categories[i]?.categories[ii]);
+                }
+                if(!this.selectedCat.includes(this.categories[i]?.categories[ii]?.categories[iii])) {
+                  this.selectedCat.push(this.categories[i]?.categories[ii]?.categories[iii]);
+                }
+                if(!this.selectedCat.includes(this.categories[i]?.categories[ii]?.categories[iii]?.categories[iiii])) {
+                  this.selectedCat.push(this.categories[i]?.categories[ii]?.categories[iii]?.categories[iiii]);
+                }
+                if(!this.selectedCat.includes(this.categories[i]?.categories[ii]?.categories[iii]?.categories[iiii]?.categories[iiiii])) {
+                  this.selectedCat.push(this.categories[i]?.categories[ii]?.categories[iii]?.categories[iiii]?.categories[iiiii]);
+                }
+              }
+            }
+          }
         }
       }
     }
@@ -191,7 +274,7 @@ export class AddCompanyComponent implements OnInit {
   getCategoriesByBusinessType() {
     this.selectedCat = [];
     this.loderService.setIsLoading = true;
-    this.companiesService.getCategoriesByBusinessType(this.createCompany.controls.businessType.value).subscribe((data) => {
+    this.companiesService.getCategoriesByBusinessType(this.createCompany.controls.businessType.value,null).subscribe((data) => {
       this.categories = data.result.productsCategoryItem.concat(data.result.servicesCategoryItem);
       this.createCompany.get('companyCategoryIds').setValue([]);
       this.openModal(this.catModal);
@@ -204,27 +287,31 @@ export class AddCompanyComponent implements OnInit {
   getCategoriesByBusinessTypeForEdit() {
     this.selectedCat = [];
     this.loderService.setIsLoading = true;
-    this.companiesService.getCategoriesByBusinessType(this.companyItem.businessType).subscribe((data) => {
+    this.companiesService.getCategoriesByBusinessType(this.companyItem.businessType,null).subscribe((data) => {
       this.categories = data.result.productsCategoryItem.concat(data.result.servicesCategoryItem);
       this.categories.map((item) => {
         if(this.companyItem.companyCategoryIds.includes(item.id)) {
           this.selectedCat.push(item);
         }
+        if(item.categories.length > 0) {
+          this.checkCats(item.categories);
+        }
       });
-      this.selectedCat.map((item) => {
-        item.categories.map((cc) => {
-          if(this.companyItem.companyCategoryIds.includes(cc.id)) {
-            this.selectedCat.push(cc);
-          }
-        });
-      });
-      // this.companyItem.companyCategoryIds.map((item) => {
-      //   this.selectedCat.push(this.categories?.find(c => c.id === item));
-      // });
       this.createCompany.get('companyCategoryIds').setValue([]);
       this.loderService.setIsLoading = false;
     },(error) => {
       this.loderService.setIsLoading = false;
+    });
+  }
+
+  checkCats(cats) {
+    cats.map((cc) => {
+      if(this.companyItem.companyCategoryIds.includes(cc.id)) {
+        this.selectedCat.push(cc);
+      }
+      if(cc.categories?.length > 0) {
+        this.checkCats(cc.categories);
+      }
     });
   }
 
@@ -325,7 +412,6 @@ export class AddCompanyComponent implements OnInit {
     this.companiesService.getCompanyById(this.companyId).subscribe((data) => {
       this.companyItem = data.result;
       // this.companyItem = data.result.companyItem;
-      console.log(this.companyItem);
       this.createCompany.controls['commercialName'].disable();
       this.selectedImageUrl = this.companyItem.logoPath;
       this.getCategoriesByBusinessTypeForEdit();

@@ -3,7 +3,7 @@
         <span class="flex-fill mx-2 user-name c-white d-none d-sm-block">Welcome {{username || 'to growthway'}}</span>
         <div class="d-flex">
             <button [matMenuTriggerFor]="selectCurrency" class="mx-2 btn c-white btn-sm align-items-center d-flex">
-                <img class="flag" src="../../../../../assets/images/077-jordan.svg"/>
+                <img class="flag" src="../../../../../assets/images/008-saudi-arabia.svg"/>
                 <span class="mx-2 c-white">{{activeCurrency?.name || 'Currency'}}</span> 
                 <img class="flag" src="../../../../../assets/images/iconly_light-outline_arrow_-_left_circle-13.svg"/>
             </button>
@@ -11,7 +11,7 @@
                 <ng-container *ngFor="let currency of currencies">
                     <button (click)="setActiveCurrency(currency)" [ngClass]="{ active: currency === activeCurrency }" mat-menu-item>
                         <span class="symbol symbol-20 mx-3">
-                            <img class="flag" src="../../../../../assets/images/077-jordan.svg" />
+                            <img class="flag" src="../../../../../assets/images/008-saudi-arabia.svg" />
                         </span>
                         <span class="navi-text">{{ currency.name }}</span>
                     </button>
@@ -85,43 +85,58 @@
                         <svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="search" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" class="svg-inline--fa fa-search fa-w-16 fa-3x"><path fill="currentColor" d="M505 442.7L405.3 343c-4.5-4.5-10.6-7-17-7H372c27.6-35.3 44-79.7 44-128C416 93.1 322.9 0 208 0S0 93.1 0 208s93.1 208 208 208c48.3 0 92.7-16.4 128-44v16.3c0 6.4 2.5 12.5 7 17l99.7 99.7c9.4 9.4 24.6 9.4 33.9 0l28.3-28.3c9.4-9.4 9.4-24.6.1-34zM208 336c-70.7 0-128-57.2-128-128 0-70.7 57.2-128 128-128 70.7 0 128 57.2 128 128 0 70.7-57.2 128-128 128z" class=""></path></svg>
                     </button> -->
                 </div>
-                <div class="mx-3" *ngIf="checkIfLogin()">
+                <!-- <div class="mx-3" *ngIf="checkIfLogin()">
                     <button [matMenuTriggerFor]="menu" class="btn btn-header-profile" style="background-image: url('{{getProfileImage()}}');"></button>
+                    <a routerLink="companies" class="btn btn-success px-4 mx-3">
+                        My Companies
+                    </a>
                     <mat-menu class="custom-menu" #menu="matMenu">
                         <a routerLink="my-profile" mat-menu-item>My Profile</a>
                         <a routerLink="companies" mat-menu-item>My Companies</a>
                         <a routerLink="/auth/logout" mat-menu-item>Logout</a>
                     </mat-menu>
+                </div> -->
+                <div class="mx-3 text-center" *ngIf="checkIfLogin()">
+                    <a routerLink="companies">
+                        <img src="./assets/images/shop.svg" alt="login" class="header-icon"/><br/>
+                        Be Supplier
+                    </a>
                 </div>
-                <div class="mx-3 descktop-header" *ngIf="checkIfLogin()">
+                <div class="mx-3 text-center descktop-header" *ngIf="checkIfLogin()">
                     <a href="#">
-                        <img src="./assets/images/shopping_bag-1.svg" alt="cart"/>
+                        <img src="./assets/images/shopping_bag-1.svg" alt="cart"/><br/>
+                        Orders / Cart
                     </a>
                 </div>
                 <div class="mx-3 text-center" *ngIf="!checkIfLogin()">
-                    <a routerLink="/auth/login" >
+                    <a routerLink="/auth/login">
                         <img src="./assets/images/my_account-1.svg" alt="login" class="mb-1"/><br/>
                         Login / Register
                     </a>
                 </div>
-                <div class="mx-3 descktop-header">
-                    <button [matMenuTriggerFor]="menu2" class="btn">
+                <div class="mx-3 text-center descktop-header">
+                    <button [matMenuTriggerFor]="menu2" class="btn c-primary" data-toggle="tooltip" title="Menu">
                         <img src="./assets/images/icon_products.svg" alt="cart"/>
                     </button>
                     <mat-menu class="custom-menu" #menu2="matMenu">
-                        <a href="#" mat-menu-item>Contact Us</a>
-                        <a href="#" mat-menu-item>Careers</a>
-                        <a href="#" mat-menu-item>Help</a>
+                        <ng-container *ngIf="!checkIfLogin()">
+                            <a routerLink="auth/login" mat-menu-item>Login</a>
+                            <a routerLink="auth/registration" mat-menu-item>Rigester</a>
+                        </ng-container>
+                        <ng-container *ngIf="checkIfLogin()">
+                            <a routerLink="my-profile" mat-menu-item>My Profile</a>
+                            <a routerLink="/auth/logout" mat-menu-item>Logout</a>
+                        </ng-container>
                     </mat-menu>
                 </div>
             </div>
             <div class="text-center header-links">
                 <ul class="nav-links">
+                    <li><a href="#">Hot Deals</a></li>
                     <li><a routerLink="about-us">New Arrivals</a></li>
                     <li><a href="#">Brands</a></li>
                     <li><a href="#">Products</a></li>
                     <li><a href="#">Request Order</a></li>
-                    <li><a href="#">Hot Deals</a></li>
                     <li><a href="#">Contact us</a></li>
                 </ul>
             </div>

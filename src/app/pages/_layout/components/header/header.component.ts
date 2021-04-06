@@ -25,6 +25,7 @@ export class HeaderComponent implements OnInit {
   getCurrencies() {
     this.lookupsService.getCurrencies().subscribe((data) => {
       this.currencies = data.result.currencies;
+      this.activeCurrency = this.currencies.find(item => item.id === 'd755b09c-0ce3-4bc7-353f-08d8f772fcd0');
     });
   }
 

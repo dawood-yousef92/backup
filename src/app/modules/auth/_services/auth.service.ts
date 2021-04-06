@@ -46,15 +46,15 @@ export class AuthService {
     );
   }
 
-  confirmEmail(userId:string,code:string): Observable<any> {
-    return this.httpClient.post(
-      `Account/ConfirmEmail`,
-      {
-        userId,
-        code,
-      }
-    );
-  }
+  // confirmEmail(userId:string,code:string): Observable<any> {
+  //   return this.httpClient.post(
+  //     `Account/ConfirmEmail`,
+  //     {
+  //       userId,
+  //       code,
+  //     }
+  //   );
+  // }
 
   forgetPassword(email:string): Observable<any> {
     return this.httpClient.post(
@@ -83,6 +83,13 @@ export class AuthService {
     this.router.navigate(['/auth/login'], {
       queryParams: {},
     });
+  }
+
+  confirmEmail(data): Observable<any>{
+    return this.httpClient.post(
+      `Account/ConfirmEmail`,
+      data
+    );
   }
 
   getUserByToken(): Observable<any> {
