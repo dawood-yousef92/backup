@@ -11,7 +11,7 @@
                         <div class="my-profile-img" style="background-image: url('{{selectedImageUrl || defaultImage}}');"></div>
                         <div>
                             <button type="button" (click)="changePhoto()" class="btn btn-success mx-2 d-block mb-2">Change Logo</button>
-                            <button *ngIf="selectedImageUrl" type="button" (click)="removePhoto()" class="btn btn-light mx-2">Remove Logo</button>
+                            <!-- <button *ngIf="selectedImageUrl" type="button" (click)="removePhoto()" class="btn btn-light mx-2">Remove Logo</button> -->
                         </div>
                         <input formControlName="logo" id="photoInput" type="file" accept=".PNG,.JPEG,.jpg" (change)="readURL($event)" class="d-none" placeholder="Enter photo">
                         <p *ngIf="errorImageSize" class="c-red mb-0">Please select photo whith size less than 2M</p>
@@ -136,7 +136,7 @@
                         </mat-select>
                     </mat-form-field>
                     <button *ngIf="createCompany.controls.businessType.value" type="button" class="btn btn-success mb-2" (click)="openModal(catModal)">Select Categories</button>
-                    <div class="chips-list" *ngIf="selectedCat.length > 0">
+                    <div class="chips-list" *ngIf="selectedCat?.length > 0">
                         <span class="chip" *ngFor="let cat of selectedCat">
                             {{cat.name}}
                             <span class="ml-2 cursor-pointer" (click)="removeCat(cat)">X</span>
@@ -164,19 +164,19 @@
 
 <ng-template #subCat let-categories="categories">
     <ng-container *ngFor="let cat of categories">
-        <ng-container *ngIf="cat.categories?.length > 0">
-            <mat-expansion-panel>
+        <ng-container *ngIf="cat.hasChildren">
+            <mat-expansion-panel (click)="getCategoriesByParentId(cat)">
                 <mat-expansion-panel-header>
                     <mat-panel-title>
                         <!-- <mat-checkbox [checked]="isChecked(cat)" (click)="clickCat($event)" (change)="selectCat($event,cat,'main')" class="mx-2"></mat-checkbox>  -->
                         {{cat.name}}
                     </mat-panel-title>
                 </mat-expansion-panel-header>
-                <div *ngIf="cat.categories?.length > 0" [ngTemplateOutlet]="subCat" [ngTemplateOutletContext]="{categories:cat.categories}">
+                <div *ngIf="cat.hasChildren" [ngTemplateOutlet]="subCat" [ngTemplateOutletContext]="{categories:cat.categories}">
                 </div>
             </mat-expansion-panel>
         </ng-container>
-        <ng-container *ngIf="cat.categories?.length === 0">
+        <ng-container *ngIf="!cat.hasChildren">
             <ng-container>
                 <mat-panel-title class="mat-expansion-panel-header-title noSub">
                     <mat-checkbox [checked]="isChecked(cat)" (click)="clickCat($event)" (change)="selectCat($event,cat,'sub')" class="mx-2"></mat-checkbox> 

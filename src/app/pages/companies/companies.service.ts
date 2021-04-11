@@ -9,8 +9,8 @@ import { Observable } from 'rxjs';
 export class CompaniesService {
     constructor(private http: HttpClient){}
 
-    getCategoriesByBusinessType(businessType,level): Observable<any> {
-        return this.http.post<any>('Companies/GetCategoriesByBusinessType', {businessType:businessType,level: level,isEagerLoaded: true});
+    getCategoriesByBusinessType(catId,businessType,level,isEagerLoaded): Observable<any> {
+        return this.http.post<any>('Companies/GetCategoriesByBusinessType', {id:catId,businessType:businessType,level: level,isEagerLoaded: isEagerLoaded});
     }
 
     createCompany(formData): Observable<any> {

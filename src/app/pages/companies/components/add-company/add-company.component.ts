@@ -183,81 +183,88 @@ export class AddCompanyComponent implements OnInit {
     // }
   }
 
-  addParents(parentId) {
-    for(let i = 0; this.categories.length > i; i++){
-      if(this.categories[i]?.id === parentId) {
-        if(!this.selectedCat.includes(this.categories[i])) {
-          this.selectedCat.push(this.categories[i]);
-        }
-      }
-      for(let ii = 0; this.categories[i]?.categories?.length > ii; ii++) {
-        if(this.categories[i]?.categories[ii]?.id === parentId) {
-          if(!this.selectedCat.includes(this.categories[i])) {
-            this.selectedCat.push(this.categories[i]);
-          }
-          if(!this.selectedCat.includes(this.categories[i]?.categories[ii])) {
-            this.selectedCat.push(this.categories[i]?.categories[ii]);
-          }
-        }
-        for(let iii = 0; this.categories[i]?.categories.length > iii; iii++) {
-          if(this.categories[i]?.categories[ii]?.categories[iii]?.id === parentId) {
-            if(!this.selectedCat.includes(this.categories[i])) {
-              this.selectedCat.push(this.categories[i]);
-            }
-            if(!this.selectedCat.includes(this.categories[i]?.categories[ii])) {
-              this.selectedCat.push(this.categories[i]?.categories[ii]);
-            }
-            if(!this.selectedCat.includes(this.categories[i]?.categories[ii]?.categories[iii])) {
-              this.selectedCat.push(this.categories[i]?.categories[ii]?.categories[iii]);
-            }
-          }
-          for(let iiii = 0; this.categories[i]?.categories[ii]?.categories?.length > iiii; iiii++) {
-            if(this.categories[i]?.categories[ii]?.categories[iii]?.categories[iiii]?.id === parentId) {
-              if(!this.selectedCat.includes(this.categories[i])) {
-                this.selectedCat.push(this.categories[i]);
-              }
-              if(!this.selectedCat.includes(this.categories[i]?.categories[ii])) {
-                this.selectedCat.push(this.categories[i]?.categories[ii]);
-              }
-              if(!this.selectedCat.includes(this.categories[i]?.categories[ii]?.categories[iii])) {
-                this.selectedCat.push(this.categories[i]?.categories[ii]?.categories[iii]);
-              }
-              if(!this.selectedCat.includes(this.categories[i]?.categories[ii]?.categories[iii]?.categories[iiii])) {
-                this.selectedCat.push(this.categories[i]?.categories[ii]?.categories[iii]?.categories[iiii]);
-              }
-            }
-            for(let iiiii = 0; this.categories[i]?.categories[ii]?.categories[iii]?.length > iiiii; iiiii++) {
-              if(this.categories[i]?.categories[ii]?.categories[iii]?.categories[iiii]?.id === parentId) {
-                if(!this.selectedCat.includes(this.categories[i])) {
-                  this.selectedCat.push(this.categories[i]);
-                }
-                if(!this.selectedCat.includes(this.categories[i]?.categories[ii])) {
-                  this.selectedCat.push(this.categories[i]?.categories[ii]);
-                }
-                if(!this.selectedCat.includes(this.categories[i]?.categories[ii]?.categories[iii])) {
-                  this.selectedCat.push(this.categories[i]?.categories[ii]?.categories[iii]);
-                }
-                if(!this.selectedCat.includes(this.categories[i]?.categories[ii]?.categories[iii]?.categories[iiii])) {
-                  this.selectedCat.push(this.categories[i]?.categories[ii]?.categories[iii]?.categories[iiii]);
-                }
-                if(!this.selectedCat.includes(this.categories[i]?.categories[ii]?.categories[iii]?.categories[iiii]?.categories[iiiii])) {
-                  this.selectedCat.push(this.categories[i]?.categories[ii]?.categories[iii]?.categories[iiii]?.categories[iiiii]);
-                }
-              }
-            }
-          }
-        }
-      }
-    }
-  }
+  // addParents(parentId) {
+  //   for(let i = 0; this.categories.length > i; i++){
+  //     if(this.categories[i]?.id === parentId) {
+  //       if(!this.selectedCat.includes(this.categories[i])) {
+  //         this.selectedCat.push(this.categories[i]);
+  //       }
+  //     }
+  //     for(let ii = 0; this.categories[i]?.categories?.length > ii; ii++) {
+  //       if(this.categories[i]?.categories[ii]?.id === parentId) {
+  //         if(!this.selectedCat.includes(this.categories[i])) {
+  //           this.selectedCat.push(this.categories[i]);
+  //         }
+  //         if(!this.selectedCat.includes(this.categories[i]?.categories[ii])) {
+  //           this.selectedCat.push(this.categories[i]?.categories[ii]);
+  //         }
+  //       }
+  //       for(let iii = 0; this.categories[i]?.categories.length > iii; iii++) {
+  //         if(this.categories[i]?.categories[ii]?.categories[iii]?.id === parentId) {
+  //           if(!this.selectedCat.includes(this.categories[i])) {
+  //             this.selectedCat.push(this.categories[i]);
+  //           }
+  //           if(!this.selectedCat.includes(this.categories[i]?.categories[ii])) {
+  //             this.selectedCat.push(this.categories[i]?.categories[ii]);
+  //           }
+  //           if(!this.selectedCat.includes(this.categories[i]?.categories[ii]?.categories[iii])) {
+  //             this.selectedCat.push(this.categories[i]?.categories[ii]?.categories[iii]);
+  //           }
+  //         }
+  //         for(let iiii = 0; this.categories[i]?.categories[ii]?.categories?.length > iiii; iiii++) {
+  //           if(this.categories[i]?.categories[ii]?.categories[iii]?.categories[iiii]?.id === parentId) {
+  //             if(!this.selectedCat.includes(this.categories[i])) {
+  //               this.selectedCat.push(this.categories[i]);
+  //             }
+  //             if(!this.selectedCat.includes(this.categories[i]?.categories[ii])) {
+  //               this.selectedCat.push(this.categories[i]?.categories[ii]);
+  //             }
+  //             if(!this.selectedCat.includes(this.categories[i]?.categories[ii]?.categories[iii])) {
+  //               this.selectedCat.push(this.categories[i]?.categories[ii]?.categories[iii]);
+  //             }
+  //             if(!this.selectedCat.includes(this.categories[i]?.categories[ii]?.categories[iii]?.categories[iiii])) {
+  //               this.selectedCat.push(this.categories[i]?.categories[ii]?.categories[iii]?.categories[iiii]);
+  //             }
+  //           }
+  //           for(let iiiii = 0; this.categories[i]?.categories[ii]?.categories[iii]?.length > iiiii; iiiii++) {
+  //             if(this.categories[i]?.categories[ii]?.categories[iii]?.categories[iiii]?.id === parentId) {
+  //               if(!this.selectedCat.includes(this.categories[i])) {
+  //                 this.selectedCat.push(this.categories[i]);
+  //               }
+  //               if(!this.selectedCat.includes(this.categories[i]?.categories[ii])) {
+  //                 this.selectedCat.push(this.categories[i]?.categories[ii]);
+  //               }
+  //               if(!this.selectedCat.includes(this.categories[i]?.categories[ii]?.categories[iii])) {
+  //                 this.selectedCat.push(this.categories[i]?.categories[ii]?.categories[iii]);
+  //               }
+  //               if(!this.selectedCat.includes(this.categories[i]?.categories[ii]?.categories[iii]?.categories[iiii])) {
+  //                 this.selectedCat.push(this.categories[i]?.categories[ii]?.categories[iii]?.categories[iiii]);
+  //               }
+  //               if(!this.selectedCat.includes(this.categories[i]?.categories[ii]?.categories[iii]?.categories[iiii]?.categories[iiiii])) {
+  //                 this.selectedCat.push(this.categories[i]?.categories[ii]?.categories[iii]?.categories[iiii]?.categories[iiiii]);
+  //               }
+  //             }
+  //           }
+  //         }
+  //       }
+  //     }
+  //   }
+  // }
 
   isChecked(cat):boolean {
-    if(this.selectedCat?.includes(cat)) {
-      return true;
-    }
-    else {
-      return false;
-    }
+    let a = false;
+    this.selectedCat?.map((item) => {
+      if(item.id === cat.id) {
+        a = true;
+      }
+    });
+    return a;
+    // if(this.selectedCat?.includes(cat)) {
+    //   return true;
+    // }
+    // else {
+    //   return false;
+    // }
   }
 
   removeCat(cat) {
@@ -272,9 +279,9 @@ export class AddCompanyComponent implements OnInit {
   }
 
   getCategoriesByBusinessType() {
-    this.selectedCat = [];
+    // this.selectedCat = [];
     this.loderService.setIsLoading = true;
-    this.companiesService.getCategoriesByBusinessType(this.createCompany.controls.businessType.value,null).subscribe((data) => {
+    this.companiesService.getCategoriesByBusinessType(null,this.createCompany.controls.businessType.value,1,false).subscribe((data) => {
       this.categories = data.result.productsCategoryItem.concat(data.result.servicesCategoryItem);
       this.createCompany.get('companyCategoryIds').setValue([]);
       this.openModal(this.catModal);
@@ -285,18 +292,18 @@ export class AddCompanyComponent implements OnInit {
   }
 
   getCategoriesByBusinessTypeForEdit() {
-    this.selectedCat = [];
+    // this.selectedCat = [];
     this.loderService.setIsLoading = true;
-    this.companiesService.getCategoriesByBusinessType(this.companyItem.businessType,null).subscribe((data) => {
+    this.companiesService.getCategoriesByBusinessType(null,this.companyItem.businessType,1,false).subscribe((data) => {
       this.categories = data.result.productsCategoryItem.concat(data.result.servicesCategoryItem);
-      this.categories.map((item) => {
-        if(this.companyItem.companyCategoryIds.includes(item.id)) {
-          this.selectedCat.push(item);
-        }
-        if(item.categories.length > 0) {
-          this.checkCats(item.categories);
-        }
-      });
+      // this.categories.map((item) => {
+      //   if(this.companyItem.companyCategoryIds.includes(item.id)) {
+      //     this.selectedCat.push(item);
+      //   }
+      //   if(item.categories.length > 0) {
+      //     this.checkCats(item.categories);
+      //   }
+      // });
       this.createCompany.get('companyCategoryIds').setValue([]);
       this.loderService.setIsLoading = false;
     },(error) => {
@@ -304,16 +311,52 @@ export class AddCompanyComponent implements OnInit {
     });
   }
 
-  checkCats(cats) {
-    cats.map((cc) => {
-      if(this.companyItem.companyCategoryIds.includes(cc.id)) {
-        this.selectedCat.push(cc);
+  getCategoriesByParentId(cat) {
+    if(cat.categories.length > 0) {
+      return
+    }
+    this.companiesService.getCategoriesByBusinessType(cat.id,this.createCompany.controls.businessType.value,null,false).subscribe((data) => {
+      // var a = data.result.productsCategoryItem.concat(data.result.servicesCategoryItem);
+      this.categories.map((item) => {
+        console.log(data);
+        if(item.id == data.result.productsCategoryItem.concat(data.result.servicesCategoryItem)[0]?.id) {
+          item = data.result.productsCategoryItem.concat(data.result.servicesCategoryItem)[0];
+          this.loderService.setIsLoading = false;
+        }
+        else {
+          if(item.categories.length > 0 && data.result.productsCategoryItem.concat(data.result.servicesCategoryItem)[0]) {
+            this.findCat(item.categories,data.result.productsCategoryItem.concat(data.result.servicesCategoryItem)[0]);
+          }
+        }
+      });
+    },(error) => {
+      this.loderService.setIsLoading = false;
+    });
+  }
+
+  findCat(cats,a) {
+    cats.map((item) => {
+      if(item.id == a.id) {
+        item.categories = a.categories;
+        this.loderService.setIsLoading = false;
       }
-      if(cc.categories?.length > 0) {
-        this.checkCats(cc.categories);
+      else {
+        if(item.categories?.length > 0) {
+          this.findCat(item.categories,a);
+        }
       }
     });
   }
+  // checkCats(cats) {
+  //   cats.map((cc) => {
+  //     if(this.companyItem.companyCategoryIds.includes(cc.id)) {
+  //       this.selectedCat.push(cc);
+  //     }
+  //     if(cc.categories?.length > 0) {
+  //       this.checkCats(cc.categories);
+  //     }
+  //   });
+  // }
 
   getCountries() {
     this.lookupsService.getCountries().subscribe((data) => {
@@ -414,6 +457,7 @@ export class AddCompanyComponent implements OnInit {
       // this.companyItem = data.result.companyItem;
       this.createCompany.controls['commercialName'].disable();
       this.selectedImageUrl = this.companyItem.logoPath;
+      this.selectedCat = data.result.companyCategoryItems;
       this.getCategoriesByBusinessTypeForEdit();
       this.getCities({value: this.companyItem.countryId});
       this.initForm();

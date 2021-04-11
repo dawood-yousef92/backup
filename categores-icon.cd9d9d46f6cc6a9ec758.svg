@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="11" height="48" viewBox="0 0 11 48">
+  <g id="Group_2246" data-name="Group 2246" transform="translate(0 0)">
+    <g id="Ellipse_1426" data-name="Ellipse 1426" transform="translate(0 6)" fill="none" stroke="#9d9797" stroke-width="1">
+      <ellipse cx="5.5" cy="7" rx="5.5" ry="7" stroke="none"/>
+      <ellipse cx="5.5" cy="7" rx="5" ry="6.5" fill="none"/>
+    </g>
+    <g id="Ellipse_1427" data-name="Ellipse 1427" transform="translate(0 17)" fill="none" stroke="#9d9797" stroke-width="1">
+      <ellipse cx="5.5" cy="6.5" rx="5.5" ry="6.5" stroke="none"/>
+      <ellipse cx="5.5" cy="6.5" rx="5" ry="6" fill="none"/>
+    </g>
+    <g id="Ellipse_1428" data-name="Ellipse 1428" transform="translate(0 28)" fill="none" stroke="#9d9797" stroke-width="1">
+      <ellipse cx="5.5" cy="6.5" rx="5.5" ry="6.5" stroke="none"/>
+      <ellipse cx="5.5" cy="6.5" rx="5" ry="6" fill="none"/>
+    </g>
+    <ellipse id="Ellipse_1424" data-name="Ellipse 1424" cx="5.5" cy="5" rx="5.5" ry="5" transform="translate(0 0)" fill="#afd13c"/>
+    <circle id="Ellipse_1429" data-name="Ellipse 1429" cx="5.5" cy="5.5" r="5.5" transform="translate(0 37)" fill="#afd13c"/>
+  </g>
+</svg>

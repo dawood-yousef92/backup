@@ -15,7 +15,7 @@
 }
 .custom-tree .noSub {
     padding-left: 5px;
-    padding-right: 25px;
+    padding-right: 10px;
 }
 .mat-expanded > span.mat-expansion-indicator::after {
     transform: rotate(-90deg)!important;
