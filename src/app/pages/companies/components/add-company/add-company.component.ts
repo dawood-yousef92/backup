@@ -37,6 +37,8 @@ export class AddCompanyComponent implements OnInit {
   companyId:any;
 
   companyItem:any;
+  companyImages:File[] = [];
+  companyImageItems:any;
 
   constructor( private router: Router,
     private fb: FormBuilder, 
@@ -108,6 +110,14 @@ export class AddCompanyComponent implements OnInit {
 
   selectFiles(e) {
     this.documents = e.documents;
+    console.log(e);
+  }
+
+  selectImages(e) {
+    this.companyImages = [];
+    e.map((item) => {
+      this.companyImages.push(item.file);
+    })
   }
 
   openModal(content) {
@@ -464,8 +474,13 @@ export class AddCompanyComponent implements OnInit {
     });
   }
 
-  deleteDocument(index) {
-    this.companyItem?.companyDocuments.splice(index,1);
+  deleteFile(index,type) {
+    if(type === 'docs') {
+      this.companyItem?.companyDocuments.splice(index,1);
+    }
+    else {
+      this.companyItem?.companyImageItems.splice(index,1)
+    }
   }
 
   ngOnInit(): void {
@@ -510,12 +525,18 @@ export class AddCompanyComponent implements OnInit {
     for(let i =0; i < this.documents.length; i++){
       formData.append("attachments", this.documents[i] as File, this.documents[i]['name']);
     }
+    for(let i =0; i < this.companyImages.length; i++){
+      formData.append("companyImages", this.companyImages[i] as File, this.companyImages[i]['name']);
+    }
 
     if(this.companyId) {
       formData.append('id',this.companyId);
       formData.append('verified',this.companyItem?.verified);
       for(let i =0; i < this.companyItem?.companyDocuments.length; i++){
         formData.append("attachmentIds", this.companyItem?.companyDocuments[i].id);
+      }
+      for(let i =0; i < this.companyItem?.companyImageItems.length; i++){
+        formData.append("companyImagesIds", this.companyItem?.companyImageItems[i].id);
       }
       formData.append('attachmentIds','');
       if(this.companyItem?.logoPath) {

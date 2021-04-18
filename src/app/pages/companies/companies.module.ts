@@ -15,10 +15,12 @@ import {MatIconModule} from '@angular/material/icon';
 import { UploadDocumentsComponent } from './components/upload-documents/upload-documents.component';
 import { MatTreeModule } from '@angular/material/tree';
 import {MatButtonModule} from '@angular/material/button';
+import { UploadImagesComponent } from './components/upload-images/upload-images.component';
+import { ImageCropperModule } from 'ngx-image-cropper';
 
 
 @NgModule({
-  declarations: [CompaniesComponent, AddCompanyComponent, CompaniesListComponent, UploadDocumentsComponent],
+  declarations: [CompaniesComponent, AddCompanyComponent, CompaniesListComponent, UploadDocumentsComponent, UploadImagesComponent],
   imports: [
     CommonModule,
     TranslationModule,
@@ -53,6 +55,7 @@ import {MatButtonModule} from '@angular/material/button';
     MatIconModule,
     MatButtonModule,
     MatTreeModule,
+    ImageCropperModule
   ],
 })
 export class CompaniesModule {}
