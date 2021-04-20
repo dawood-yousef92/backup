@@ -442,6 +442,9 @@ a {
   .slick-slide:focus {
     outline: 0;
   }
+  img {
+    max-height: 380px;
+  }
 }
 .section {
   position: relative;

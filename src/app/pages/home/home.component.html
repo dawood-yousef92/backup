@@ -26,7 +26,9 @@
     <div class="col-lg-9 col-md-8">
         <ngx-slick-carousel class="carousel main-slider" #slickModal="slick-carousel" [config]="slideConfig">
             <div ngxSlickItem *ngFor="let slide of slides" class="slide">
-                <img src="{{ slide.img }}" alt="" width="100%">
+                <a target="_blanck" [href]="slide.link">
+                    <img [src]="slide.imageUri" [alt]="slide.description" width="100%">
+                </a>
             </div>
         </ngx-slick-carousel>
     </div>
@@ -51,24 +53,6 @@
                     <div ngxSlickItem *ngFor="let slide of categories" class="slide">
                         <a class="cat-slide" href="#">
                             <div class="slide-img" style="background-image:url('../../../assets/images/Capture4.PNG')"></div>
-                            <h3 class="slide-title">{{slide.name}}</h3>
-                        </a>
-                    </div>
-                    <div ngxSlickItem *ngFor="let slide of categories" class="slide">
-                        <a class="cat-slide" href="#">
-                            <div class="slide-img" style="background-image:url('../../../assets/images/Capture5.PNG')"></div>
-                            <h3 class="slide-title">{{slide.name}}</h3>
-                        </a>
-                    </div>
-                    <div ngxSlickItem *ngFor="let slide of categories" class="slide">
-                        <a class="cat-slide" href="#">
-                            <div class="slide-img" style="background-image:url('../../../assets/images/Capture6.PNG')"></div>
-                            <h3 class="slide-title">{{slide.name}}</h3>
-                        </a>
-                    </div>
-                    <div ngxSlickItem *ngFor="let slide of categories" class="slide">
-                        <a class="cat-slide" href="#">
-                            <div class="slide-img" style="background-image:url('../../../assets/images/Capture7.PNG')"></div>
                             <h3 class="slide-title">{{slide.name}}</h3>
                         </a>
                     </div>

@@ -12,4 +12,9 @@ export class HomeService {
     getUser(): Observable<any> {
         return this.http.get<any>('Manage/GetUser');
     }
+
+    getBannerImages(): Observable<any> {
+        return this.http.post<any>('BannerImages/GetBannerImages', {});
+    }
+
 }

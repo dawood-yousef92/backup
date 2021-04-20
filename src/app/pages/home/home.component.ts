@@ -2,6 +2,7 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { SlickCarouselComponent } from 'ngx-slick-carousel';
 import { LoaderService } from 'src/app/modules/auth/_services/loader.service';
 import { CompaniesService } from '../companies/companies.service';
+import { HomeService } from './home.service';
 
 @Component({
   selector: 'app-home',
@@ -14,11 +15,7 @@ export class HomeComponent implements OnInit {
   @ViewChild('slickModal4') slickModal4: SlickCarouselComponent;
 
   categories:any[] = [];
-  slides = [
-    {img: "../../../assets/images/Capture.PNG"},
-    {img: "../../../assets/images/Capture.PNG"},
-    {img: "../../../assets/images/Capture.PNG"},
-  ];
+  slides = [];
   slideConfig = {
     "slidesToShow": 1,
     "slidesToScroll": 1,
@@ -99,7 +96,8 @@ export class HomeComponent implements OnInit {
       },
     ],
   };
-  constructor(private companiesService:CompaniesService,
+  constructor(private homeService:HomeService,
+              private companiesService:CompaniesService,
               private loderService: LoaderService,) {}
 
   next(num) {
@@ -136,6 +134,16 @@ export class HomeComponent implements OnInit {
     });
   }
 
+  getBannerImages() {
+    this.loderService.setIsLoading = true;
+    this.homeService.getBannerImages().subscribe((data) => {
+      this.slides = data.result?.bannerImagesItems?.items;
+      this.loderService.setIsLoading = false;
+    }, (error) => {
+      this.loderService.setIsLoading = false;
+    });
+  }
+
   getDirection() {
     if (localStorage.getItem('language') === 'ar') {
       return true;
@@ -147,5 +155,6 @@ export class HomeComponent implements OnInit {
 
   ngOnInit() {
     this.getCategoriesByBusinessType();
+    this.getBannerImages();
   }
 }

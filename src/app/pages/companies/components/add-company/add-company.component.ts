@@ -61,6 +61,12 @@ export class AddCompanyComponent implements OnInit {
           Validators.pattern("[a-zA-Z0-9 ]+"),
         ]),
       ],
+      arabicCommercialName: [
+        this.companyItem?.arabicCommercialName || '',
+        Validators.compose([
+          Validators.required
+        ]),
+      ],
       emailAddress: [
         this.companyItem?.emailAddress || '',
       ],
@@ -509,6 +515,7 @@ export class AddCompanyComponent implements OnInit {
       formData.append('logo',this.changeProfileImage as any, this.changeProfileImage['name']);
     }
     formData.append('commercialName',this.createCompany.controls.commercialName.value);
+    formData.append('arabicCommercialName',this.createCompany.controls.arabicCommercialName.value);
     formData.append('emailAddress',this.createCompany.controls.emailAddress.value);
     formData.append('businessType',this.createCompany.controls.businessType.value);
     formData.append('description',this.createCompany.controls.description.value);

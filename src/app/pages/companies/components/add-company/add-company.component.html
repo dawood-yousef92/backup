@@ -17,26 +17,43 @@
                         <p *ngIf="errorImageSize" class="c-red mb-0">Please select photo whith size less than 2M</p>
                     </div>
                 </div>
-                <div class="col-md-6 mb-3">
-                    <mat-form-field class="w-100">
-                        <input formControlName="commercialName" matInput placeholder="Company Name" required/>    
-                    </mat-form-field>
-                    <mat-error
-                        [ngTemplateOutlet]="formError"
-                        [ngTemplateOutletContext]="{
-                        validation: 'required',
-                        message: 'Company name is required',
-                        control: createCompany.controls['commercialName']
-                        }"
-                    ></mat-error>
-                    <mat-error
-                        [ngTemplateOutlet]="formError"
-                        [ngTemplateOutletContext]="{
-                        validation: 'pattern',
-                        message: 'Company name is invalid',
-                        control: createCompany.controls['commercialName']
-                        }"
-                    ></mat-error>
+                <div class="col-md-6">
+                    <div class="row">
+                        <div class="col-6 mb-3">
+                            <mat-form-field class="w-100">
+                                <input formControlName="commercialName" matInput placeholder="Company Name" required/>    
+                            </mat-form-field>
+                            <mat-error
+                                [ngTemplateOutlet]="formError"
+                                [ngTemplateOutletContext]="{
+                                validation: 'required',
+                                message: 'Company name is required',
+                                control: createCompany.controls['commercialName']
+                                }"
+                            ></mat-error>
+                            <mat-error
+                                [ngTemplateOutlet]="formError"
+                                [ngTemplateOutletContext]="{
+                                validation: 'pattern',
+                                message: 'Company name is invalid',
+                                control: createCompany.controls['commercialName']
+                                }"
+                            ></mat-error>
+                        </div>
+                        <div class="col-6 mb-3">
+                            <mat-form-field class="w-100">
+                                <input formControlName="arabicCommercialName" matInput placeholder="Arabic Company Name" required/>    
+                            </mat-form-field>
+                            <mat-error
+                                [ngTemplateOutlet]="formError"
+                                [ngTemplateOutletContext]="{
+                                validation: 'required',
+                                message: 'Company name is required',
+                                control: createCompany.controls['arabicCommercialName']
+                                }"
+                            ></mat-error>
+                        </div>
+                    </div>
                 </div>
                 <div class="col-md-6 mb-3">
                     <mat-form-field class="w-100">
